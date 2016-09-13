@@ -3,7 +3,7 @@
 		<h1 class="text-center">ElectronicaApp</h1>
 		<h3 class="text-center">Escoje tu usuario</h3>
 		<div>
-			<div >
+			<form >
 				<div class="row text-center">
 					<div class="col-md-3 center-block text-center btn-login no-float inline-block pointer" ng-repeat="dato in datosTecnico" ng-click="set_usuario(dato.usuario)">
 						<i class="icon-login glyphicon glyphicon-user"></i>
@@ -18,7 +18,7 @@
 					<button class="btn btn-info center-block" ng-click="linkstart()">Ingresar</button>
 				</div>
 				<p class="text-center">{{mensaje}}</p>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
