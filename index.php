@@ -9,7 +9,7 @@
 </head>
 <body class="body" ng-app="miApp" ng-controller="miController">
 	<?php 
-		if(isset($_SESSION["user"]))
+		if(isset($_SESSION["usuario"]))
 		{
 			include("panel.php");
 		}else

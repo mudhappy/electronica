@@ -2,8 +2,8 @@ var miApp = angular.module("miApp",[]);
 
 miApp.controller("miController",function($scope,$http)
 {
-	$scope.user = "";
-	$scope.pass = "";
+	$scope.usuario = "";
+	$scope.clave = "";
 
 	$scope.listarTecnicos= function()
 	{
@@ -14,21 +14,21 @@ miApp.controller("miController",function($scope,$http)
 			console.log(data);
 		});
 	}
-	$scope.set_user = function($user)
+	$scope.set_usuario = function($usuario)
 	{
-		$scope.user = $user;
-		console.log($scope.user);
+		$scope.usuario = $usuario;
+		console.log($scope.usuario);
 	}
 
 	$scope.linkstart = function()
 	{
-		console.log($scope.user + "" + $scope.pass);
+		console.log($scope.usuario + "" + $scope.clave);
 		$scope.mensaje = "Conectando ...";
-		if($scope.user != "")
+		if($scope.usuario != "")
 		{
-			if($scope.user != "" || $scope.pass != "")
+			if($scope.usuario != "" || $scope.clave != "")
 			{
-				$http.post("./php/login.php",{"user":$scope.user,"pass":$scope.pass})
+				$http.post("./php/login.php",{"usuario":$scope.usuario,"clave":$scope.clave})
 				.success(function(data, status, headers, config)
 				{
 					if(data === "true")

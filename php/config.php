@@ -5,7 +5,7 @@ if (!$link) {
     die('Not connected : ' . mysql_error());
 }
 
-if (! mysql_select_db('electronicadb') ) {
-    die ('Can\'t use electronicadb : ' . mysql_error());
+if (! mysql_select_db('taller') ) {
+    die ('Can\'t use taller : ' . mysql_error());
 }
 ?>
