@@ -1,0 +1,34 @@
+html,body
+{
+	overflow-x: hidden;
+}
+
+.no-float
+{
+	float: none;
+}
+
+.icon-login
+{
+	font-size: 50px;
+}
+
+.inline-block
+{
+	display: inline-block !important;
+}
+
+.text-center
+{
+	text-align: center;
+}
+
+.pointer
+{
+	cursor: pointer;
+}
+
+.btn-login.active
+{
+	color: red;
+}
