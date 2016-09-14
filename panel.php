@@ -2,10 +2,25 @@
 	<nav>
 		<ul class="nav nav-tabs">
 			<li>
-				<a>Bienvenido <?php echo $_SESSION["usuario"]?></a>
+				<a class="titulo">Bienvenido <?php echo $_SESSION["usuario"]?></a>
 			</li>
 			<li class="float-right">
 				<a class="pointer" ng-click="logout()">Cerrar sesión</a>
+			</li>
+			<li class="float-right">
+				<a href="#/reportes">Reportes</a>
+			</li>
+			<li class="float-right">
+				<a href="#/entregados">Equipos entregados</a>
+			</li>
+			<li class="float-right">
+				<a href="#/terminados">Equipos terminados</a>
+			</li>
+			<li class="float-right">
+				<a href="#/taller">Equipos en taller</a>
+			</li>
+			<li class="float-right">
+				<a href="#/tareas">Mis tareas</a>
 			</li>
 		</ul>
 	</nav>

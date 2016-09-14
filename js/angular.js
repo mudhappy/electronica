@@ -18,11 +18,53 @@ miApp.controller("adminController",function($scope,$http)
 	$scope.listarTareas= function()
 	{
 		$http.get("./php/list.php?tareas")
-		.success(function(data2)
+		.success(function(data)
 		{
-			$scope.datosTareas = data2;
+			$scope.datosTareas = data;
 			console.log("---------------");
-			console.log(data2);
+			console.log(data);
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+	$scope.listarTaller= function()
+	{
+		$http.get("./php/list.php?taller")
+		.success(function(data)
+		{
+			$scope.datosTaller = data;
+			console.log("---------------");
+			console.log(data);
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+	$scope.listarTerminados= function()
+	{
+		$http.get("./php/list.php?terminados")
+		.success(function(data)
+		{
+			$scope.datosTerminados = data;
+			console.log("---------------");
+			console.log(data);
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+	$scope.listarEntregados= function()
+	{
+		$http.get("./php/list.php?entregados")
+		.success(function(data)
+		{
+			$scope.datosEntregados = data;
+			console.log("---------------");
+			console.log(data);
 		})
 		.error(function(data, status, headers, config){
 			console.log("Error " + data);
@@ -52,9 +94,18 @@ miApp.config(function($routeProvider)
 	$routeProvider.when("/tareas",
 	{
 		templateUrl: "./tareas.php"
+	}).when("/entregados",
+	{
+		templateUrl: "./entregados.php"
+	}).when("/terminados",
+	{
+		templateUrl: "./terminados.php"
 	}).when("/reportes",
 	{
 		templateUrl: "./reportes.php"
+	}).when("/taller",
+	{
+		templateUrl: "./taller.php"
 	}).otherwise(
 	{
 		redirectTo: "/tareas"
