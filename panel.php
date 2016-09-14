@@ -2,7 +2,7 @@
 	<nav>
 		<ul class="nav nav-tabs">
 			<li>
-				<a>Bienvenido <?php echo $_SESSION["usuario"] ?></a>
+				<a>Bienvenido <?php echo $_SESSION["usuario"]." - id:".$_SESSION["id"] ?></a>
 			</li>
 			<li>
 				<a class="pointer" ng-click="logout()">Cerrar sesión</a>
@@ -11,4 +11,6 @@
 	</nav>
 </header>
 
-<div ng-controller='miAdmin' ng-view></div>
+<div ng-view></div>
+
+<script src="./js/angular.js"></script>

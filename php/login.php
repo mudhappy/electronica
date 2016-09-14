@@ -17,6 +17,7 @@ if($row = mysql_fetch_array($result))
 	$acceso = true;
 	$_SESSION["celular"] = $row["celular"];
 	$_SESSION["usuario"] = $row["usuario"];
+	$_SESSION["id"] = $row["id"];
 }
 
 echo json_encode($acceso);

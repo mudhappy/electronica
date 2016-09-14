@@ -1,11 +1,17 @@
 <?php
 session_start();
 
+
 include('config.php'); 
 
 if(isset($_GET["tecnico"]))
 {
-	$result = mysql_query("SELECT * FROM tecnico") or trigger_error(mysql_error()); 
+	$result = mysql_query("SELECT * FROM tecnico WHERE activo = 0") or trigger_error(mysql_error()); 
+}
+
+if(isset($_GET["tareas"]))
+{
+	$result = mysql_query("SELECT * FROM marca") or trigger_error(mysql_error()); 
 }
 
 ##Devuelve arreglo

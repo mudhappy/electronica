@@ -1,66 +1,46 @@
-var miApp = angular.module("miApp",[]);
+var miApp = angular.module("miApp",["ngRoute"]);
 
-miApp.controller("miController",function($scope,$http)
+miApp.controller("adminController",function($scope,$http)
 {
-	$scope.usuario = "";
-	$scope.clave = "";
-
-	$scope.listarTecnicos= function()
-	{
-		$http.get("./php/list.php?tecnico")
-		.success(function(data)
-		{
-			$scope.datosTecnico = data;
-			console.log(data);
-		});
-	}
-	$scope.set_usuario = function($usuario)
-	{
-		$scope.usuario = $usuario;
-		console.log($scope.usuario);
-	}
-
-	$scope.linkstart = function()
-	{
-		console.log($scope.usuario + "" + $scope.clave);
-		$scope.mensaje = "Conectando ...";
-		if($scope.usuario != "")
-		{
-			if($scope.usuario != "" || $scope.clave != "")
-			{
-				$http.post("./php/login.php",{"usuario":$scope.usuario,"clave":$scope.clave})
-				.success(function(data, status, headers, config)
-				{
-					if(data === "true")
-					{
-						$scope.mensaje = "Genial";
-						location.href= "./";
-					}else if(data === "false")
-					{
-						$scope.mensaje = "Contraseña incorrecta";
-					}
-				})
-				.error(function(data, status, headers, config){
-					console.log("Error " + data);
-				});
-			}
-		}else
-		{
-			$scope.mensaje = "Selecciona un usuario";
-		}
-	}
-
 	$scope.logout = function()
 	{
 		$http.post("logout.php",{})
-		.success(function(data, status, headers, config)
-		{
-			console.log("Adios adios");
-			location.href= "./";
-		})
-		.error(function(data, status, headers, config){
-			console.log("Error " + data);
-		});
+			.success(function(data, status, headers, config)
+			{
+				console.log("Adios adios");
+				location.href= "./";
+			})
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
+	}
+
+	$scope.listarTareas= function()
+	{
+		$http.get("./php/list.php?tareas")
+			.success(function(data2)
+			{
+				$scope.datosTareas = data2;
+				console.log("---------------");
+				console.log(data2);
+			})
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
 	}
 
 })
+
+miApp.config(function($routeProvider)
+{
+	$routeProvider.when("/tareas",
+	{
+		templateUrl: "./tareas.php"
+	}).when("/reportes",
+	{
+		templateUrl: "./reportes.php"
+	}).otherwise(
+	{
+		redirectTo: "/tareas"
+	})
+});
