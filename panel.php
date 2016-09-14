@@ -2,9 +2,9 @@
 	<nav>
 		<ul class="nav nav-tabs">
 			<li>
-				<a>Bienvenido <?php echo $_SESSION["usuario"]." - id:".$_SESSION["id"] ?></a>
+				<a>Bienvenido <?php echo $_SESSION["usuario"]?></a>
 			</li>
-			<li>
+			<li class="float-right">
 				<a class="pointer" ng-click="logout()">Cerrar sesión</a>
 			</li>
 		</ul>

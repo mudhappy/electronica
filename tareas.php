@@ -3,7 +3,7 @@
 		<h3>Mis tareas</h3>
 		<table class="table table-striped table-responsive no-float" ng-init="listarTareas()">
 			<tr>
-				<th>ED</th>
+				<th>Acción</th>
 				<th>Orden</th> 
 				<th>Tipo</th>
 				<th>Marca</th>
@@ -13,12 +13,15 @@
 				<th>Prometido</th>
 			</tr>
 			<tr ng-repeat="dato in datosTareas">
-				<td><button>#</button></td>
+				<td>
+					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+					<button class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></button>
+				</td>
 				<td>{{dato.orden}}</td>
 				<td>{{dato.tipoequipo}}</td>
 				<td>{{dato.marca}}</td>
-				<td>{{dato.informetecnico}}</td>
-				<td>{{dato.presupuestoaceptado}}</td>
+				<td>{{dato.falla}}</td>
+				<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
 				<td>{{dato.estado}}</td>
 				<td>{{dato.fechaprometido}}</td>
 			</tr>

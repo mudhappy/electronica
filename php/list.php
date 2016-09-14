@@ -17,7 +17,27 @@ if(isset($_GET["tecnico"]))
 
 if(isset($_GET["tareas"]))
 {
-	$result = $con->query("SELECT * FROM reparaciones") or trigger_error(mysql_error()); 
+	//$result = $con->query("SELECT * FROM reparaciones 
+	//	WHERE tecnico = ".$_SESSION['id']." 
+	//	AND estado = 1 
+	//	OR NOT estado = 5 
+	//	ORDER BY orden ASC") 
+
+	$result = $con->query("SELECT 
+		rep.orden, 
+		tip.nombre as tipoequipo, 
+		mar.nombre as marca,
+		rep.falla,
+		est.nombre as estado,
+		rep.fechaprometido,
+		rep.presupuestoaceptado
+		FROM reparaciones AS rep 
+		INNER JOIN familia AS fam ON rep.familia = fam.id 
+		INNER JOIN tipoequipo AS tip ON rep.tipoequipo = tip.id
+		INNER JOIN marca AS mar ON rep.marca = mar.id 
+		INNER JOIN tecnico AS tec ON rep.tecnico = tec.id
+		INNER JOIN estados AS est ON rep.estado = est.id
+		") or trigger_error(mysql_error()); 
 }
 
 $datos = array();

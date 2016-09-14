@@ -8,6 +8,16 @@ html,body
 	float: none;
 }
 
+.float-left
+{
+	float: left !important;
+}
+
+.float-right
+{
+	float: right !important;
+}
+
 .icon-login
 {
 	font-size: 50px;
@@ -31,4 +41,19 @@ html,body
 .btn-login.active
 {
 	color: red;
+}
+
+.btn-edit
+{
+	line-height: 15px !important;
+	height: 25px !important;
+	width: 15px !important;
+	position: relative;
+}
+
+.btn-edit i
+{
+	position: absolute;
+	top: 6px;
+	left: 5px;
 }
