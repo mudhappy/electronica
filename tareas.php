@@ -12,20 +12,16 @@
 				<th>Estado</th>
 				<th>Prometido</th>
 			</tr>
-			<tr>
+			<tr ng-repeat="dato in datosTareas">
 				<td><button>#</button></td>
-				<td>5</td>
-				<td>Televisor LED</td>
-				<td>Samsung</td>
-				<td>No prende! ... ah y le cayó un poquito de agua</td>
-				<td>Si</td>
-				<td>En reparación</td>
-				<td>11/10/16</td>
+				<td>{{dato.orden}}</td>
+				<td>{{dato.tipoequipo}}</td>
+				<td>{{dato.marca}}</td>
+				<td>{{dato.informetecnico}}</td>
+				<td>{{dato.presupuestoaceptado}}</td>
+				<td>{{dato.estado}}</td>
+				<td>{{dato.fechaprometido}}</td>
 			</tr>
-			<button ng-click="listarTareas()">click</button>
-			<p ng-repeat="dato in datosTareas">
-				Si esto aparece es que hay un dato
-			</p>
 		</table>
 	</div>
 </div>

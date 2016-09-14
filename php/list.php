@@ -4,21 +4,25 @@ session_start();
 
 include('config.php'); 
 
+$conexion = new Conexion();
+
+$con = $conexion->getConexion();
+mysqli_set_charset($con,'utf8');
+
+
 if(isset($_GET["tecnico"]))
 {
-	$result = mysql_query("SELECT * FROM tecnico WHERE activo = 0") or trigger_error(mysql_error()); 
+	$result = $con->query("SELECT * FROM tecnico WHERE activo = 0") or trigger_error(mysql_error()); 
 }
 
 if(isset($_GET["tareas"]))
 {
-	$result = mysql_query("SELECT * FROM marca") or trigger_error(mysql_error()); 
+	$result = $con->query("SELECT * FROM reparaciones") or trigger_error(mysql_error()); 
 }
-
-##Devuelve arreglo
 
 $datos = array();
 
-while($row = mysql_fetch_array($result))
+while($row = $result->fetch_assoc())
 {
 	$datos[] = $row;
 }
