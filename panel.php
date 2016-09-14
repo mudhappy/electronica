@@ -7,17 +7,27 @@
 			<li class="float-right">
 				<a class="pointer" ng-click="logout()">Cerrar sesión</a>
 			</li>
+			<?php 
+			if($_SESSION["id"] == 1)
+			{
+				echo 
+				'<li class="float-right">
+				<a href="#/admin">Administración</a>
+				</li>';
+			}
+			?>
+			
 			<li class="float-right">
 				<a href="#/reportes">Reportes</a>
 			</li>
 			<li class="float-right">
-				<a href="#/entregados">Equipos entregados</a>
+				<a href="#/entregados">Entregados</a>
 			</li>
 			<li class="float-right">
-				<a href="#/terminados">Equipos terminados</a>
+				<a href="#/terminados">Terminados</a>
 			</li>
 			<li class="float-right">
-				<a href="#/taller">Equipos en taller</a>
+				<a href="#/taller">Taller</a>
 			</li>
 			<li class="float-right">
 				<a href="#/tareas">Mis tareas</a>

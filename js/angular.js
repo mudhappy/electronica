@@ -103,6 +103,9 @@ miApp.config(function($routeProvider)
 	}).when("/reportes",
 	{
 		templateUrl: "./reportes.php"
+	}).when("/admin",
+	{
+		templateUrl: "./admin.php"
 	}).when("/taller",
 	{
 		templateUrl: "./taller.php"
