@@ -111,7 +111,7 @@ miApp.filter("nombrePresupuesto",function()
 {
 	var presupuestoaceptado = function(data) 
 	{ 
-		if(data==null) 
+		if(data== 2) 
 		{ 
 			return "Sin definir"; 
 		}else if(data == 0) 

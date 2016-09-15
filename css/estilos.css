@@ -1,3 +1,28 @@
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #section-to-print, #section-to-print * {
+    visibility: visible !important;
+  }
+  #section-to-print {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
+  .col-md-10
+  {
+  	width: 100% !important;
+  	position: absolute !important;
+  	top: 0 !important;
+  	left: 0 !important;
+  }
+  .pd-20
+  {
+  	padding: 0px !important;
+  }
+}
+
 html,body
 {
 	overflow-x: hidden;
@@ -68,4 +93,9 @@ html,body
 {
 	border: 1px solid transparent;
 
+}
+
+.pd-20
+{
+	padding: 20px;
 }

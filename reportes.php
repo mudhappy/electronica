@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pd-20">
 	<div class="col-md-2">
 		<div class="form-group">
 			<label for="">Cliente {{id_coso}}</label>
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 		<label for="">Serie</label>
 			<div class="row">
@@ -60,10 +60,34 @@
 				</div>
 			</div>
 		</div>
+
+		
+		<div class="form-group">
+		<label for="">Aceptado</label>
+			<div class="row">
+				<div class="col-md-12">
+					<select ng-model="presupuestoaceptado">
+						<option value="">
+							Cualquiera
+						</option>
+						<option value="0">
+							No
+						</option>
+						<option value="1">
+							Si
+						</option>
+						<option value="2">
+							Sin definir
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<div class="col-md-10">
-		<h3>Reportes</h3>
-		<table class="table table-striped table-responsive no-float" ng-init="listarTodo()">
+		<h3>Reportes <button class="btn btn-info" onclick="window.print()">Imprimir</button></h3>
+		<table id="section-to-print" class="table table-striped table-responsive no-float" ng-init="listarTodo()">
 			<tr>
 				<!--<th>Acción</th>-->
 				<th>Orden</th> 
@@ -82,7 +106,8 @@
 				telefono: telefono,
 				id_estado: estado,
 				tecnico: tecnico,
-				serie: serie 
+				serie: serie,
+				presupuestoaceptado: presupuestoaceptado 
 				}">
 				<!--
 				<td>
