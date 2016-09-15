@@ -10,7 +10,9 @@
 				<th>Falla</th>
 				<th>Aceptado</th>
 				<th>Estado</th>
+				<th>Ingresado</th>
 				<th>Prometido</th>
+				<th>Presupuesto</th>
 			</tr>
 			<tr ng-repeat="dato in datosTareas">
 				<td>
@@ -23,7 +25,9 @@
 				<td>{{dato.falla}}</td>
 				<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
 				<td>{{dato.estado}}</td>
+				<td>{{dato.fechaingreso}}</td>
 				<td>{{dato.fechaprometido}}</td>
+				<td>{{dato.simbolo}} {{dato.presupuesto}}</td>
 			</tr>
 		</table>
 	</div>
