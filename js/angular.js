@@ -71,6 +71,40 @@ miApp.controller("adminController",function($scope,$http)
 		});
 	}
 
+	$scope.listarTodo= function()
+	{
+		$http.get("./php/list.php?todo")
+		.success(function(data)
+		{
+			$scope.datosTodo = data;
+			console.log("---------------");
+			console.log(data);
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+	$scope.listarTecnicos= function()
+	{
+		$http.get("./php/list.php?tecnico")
+		.success(function(data)
+		{
+			$scope.datosTecnico = data;
+			console.log(data);
+		});
+	}
+
+	$scope.listarEstados = function()
+	{
+		$http.get("./php/list.php?estados")
+		.success(function(data)
+		{
+			$scope.datosEstados = data;
+			console.log(data);
+		});
+	}
+
 })
 
 miApp.filter("nombrePresupuesto",function()
@@ -79,8 +113,11 @@ miApp.filter("nombrePresupuesto",function()
 	{ 
 		if(data==null) 
 		{ 
-			return "no"; 
-		}else 
+			return "Sin definir"; 
+		}else if(data == 0) 
+		{ 
+			return "no" 
+		}else if(data == 1) 
 		{ 
 			return "si" 
 		} 

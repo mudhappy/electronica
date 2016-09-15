@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-11 center-block no-float">
-		<h3>Equipos en taller</h3>
+		<h3>Equipos en taller <button ng-click="listarTaller()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
 		<table class="table table-striped table-responsive no-float" ng-init="listarTaller()">
 			<tr>
 				<th>Acción</th>
