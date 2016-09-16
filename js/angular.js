@@ -105,6 +105,65 @@ miApp.controller("adminController",function($scope,$http)
 		});
 	}
 
+	$scope.equipoTerminado = function(data,data2)
+	{
+		$http.post("./php/acciones.php?terminado",{
+			"orden":data,
+			"valor":data2
+		})
+			.success(function()
+			{
+				if(data2 == 0)
+				{
+					$scope.listarEntregados();
+				}else if(data2 == 1)
+				{
+					$scope.listarTerminados();
+				}
+			})
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
+	}
+
+	$scope.eliminarEquipo = function(data)
+	{
+
+		var r = confirm("¿Estás seguro que deseas eliminar este equipo?");
+		if (r == true) {
+		    $http.post("./php/acciones.php?eliminarEquipo",{"orden":data})
+				.success(function()
+				{
+					$scope.listarEntregados();
+				})
+				.error(function(data, status, headers, config){
+					console.log("Error " + data);
+				});
+		} else {
+		    console.log("no");
+		}
+	}
+
+
+	$scope.eliminarEntregados= function()
+	{
+
+		var r = confirm("¿Estás seguro que deseas eliminar TODOS los equipos?");
+		if (r == true) {
+		    $http.post("./php/acciones.php?eliminarEntregados",{"orden": 0})
+				.success(function()
+				{
+					$scope.listarEntregados();
+				})
+				.error(function(data, status, headers, config){
+					console.log("Error " + data);
+				});
+		} else {
+		    console.log("no");
+		}
+	}
+
+
 })
 
 miApp.filter("nombrePresupuesto",function()
@@ -151,3 +210,37 @@ miApp.config(function($routeProvider)
 		redirectTo: "/tareas"
 	})
 });
+
+function fnExcelReport()
+{
+    var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+    var textRange; var j=0;
+    tab = document.getElementById('section-to-print'); // id of table
+
+    for(j = 0 ; j < tab.rows.length ; j++) 
+    {     
+        tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+        //tab_text=tab_text+"</tr>";
+    }
+
+    tab_text=tab_text+"</table>";
+    tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+    tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+    tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE "); 
+
+    if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+    {
+        txtArea1.document.open("txt/html","replace");
+        txtArea1.document.write(tab_text);
+        txtArea1.document.close();
+        txtArea1.focus(); 
+        sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+    }  
+    else                 //other browser not tested on IE 11
+        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+    return (sa);
+}

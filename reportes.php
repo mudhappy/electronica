@@ -84,9 +84,23 @@
 			</div>
 		</div>
 
+		
+		<div class="form-group">
+		<label for="">Orden</label>
+			<div class="row">
+				<div class="col-md-12">
+					<input type="text" ng-model="orden" placeholder="Nro de orden">
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<div class="col-md-10">
-		<h3>Reportes <button class="btn btn-info" onclick="window.print()">Imprimir</button></h3>
+		<h3>
+			<span>Reportes</span> 
+			<button class="btn btn-info" onclick="window.print()">Imprimir</button>
+			<button id="btnExport" class="btn btn-success" onclick="fnExcelReport();"> Exportar a excel </button>
+		</h3>
 		<table id="section-to-print" class="table table-striped table-responsive no-float" ng-init="listarTodo()">
 			<tr>
 				<!--<th>Acción</th>-->
@@ -107,7 +121,8 @@
 				id_estado: estado,
 				tecnico: tecnico,
 				serie: serie,
-				presupuestoaceptado: presupuestoaceptado 
+				presupuestoaceptado: presupuestoaceptado,
+				orden: orden
 				}">
 				<!--
 				<td>

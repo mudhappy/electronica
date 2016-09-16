@@ -1,7 +1,21 @@
 <div class="row">
 	<div class="col-md-11 center-block no-float">
-		<h3>Equipos entregados <button ng-click="listarEntregados()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
-		<table class="table table-striped table-responsive no-float" ng-init="listarEntregados()">
+		<h3>
+			<span>Equipos entregados</span>
+			<button ng-click="listarEntregados()">
+				<i class="glyphicon glyphicon-refresh"></i>
+			</button>
+			<button id="btnExport" class="btn btn-success" onclick="fnExcelReport();"> Exportar a excel </button>
+			<button class="btn btn-default float-right" ng-click="eliminarEntregados()" > Eliminar entregados </button>
+		</h3>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<input type="text" ng-model="orden" placeholder="Buscar por orden">
+				</div>
+			</div>
+		</div>
+		<table id="section-to-print" class="table table-striped table-responsive no-float" ng-init="listarEntregados()">
 			<tr>
 				<th>Acción</th>
 				<th>Orden</th> 
@@ -15,10 +29,10 @@
 				<th>Prometido</th>
 				<th>Presupuesto</th>
 			</tr>
-			<tr ng-repeat="dato in datosEntregados">
-				<td>
-					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>
-					<button class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></button>
+			<tr ng-repeat="dato in datosEntregados  | filter:{orden: orden} ">
+				<td class="col-actions">
+					<button ng-click="equipoTerminado(dato.orden,0)" class="btn btn-edit btn-info"><i class="glyphicon glyphicon-transfer"></i></button>
+					<button ng-click="eliminarEquipo(dato.orden)" class="btn btn-edit btn-default"><i class="glyphicon glyphicon-remove"></i></button>
 				</td>
 				<td>{{dato.orden}}</td>
 				<td>{{dato.tipoequipo}}</td>

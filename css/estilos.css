@@ -99,3 +99,8 @@ html,body
 {
 	padding: 20px;
 }
+
+.col-actions
+{
+  width: 80px;
+}
