@@ -138,7 +138,8 @@
 				<td>{{dato.estado}}</td>
 				<td>{{dato.fechaingreso}}</td>
 				<td>{{dato.fechaprometido}}</td>
-				<td>{{dato.simbolo}} {{dato.presupuesto}}</td>
+				<td ng-show="dato.presupuesto != null">{{dato.simbolo}} {{dato.presupuesto}}</td>
+				<td ng-hide="dato.presupuesto != null">---</td>
 			</tr>
 		</table>
 	</div>

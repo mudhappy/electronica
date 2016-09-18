@@ -13,3 +13,7 @@
 <!-- Personal -->
 <link rel="stylesheet" href="css/estilos.css">
 <script src="./js/jquery.js"></script>
+
+<!-- Calendario -->
+<link rel="stylesheet" type="text/css" href="./css/datepicker.css" /> 
+<script type="text/javascript" src="./js/datepicker.js"></script> 

@@ -104,3 +104,18 @@ html,body
 {
   width: 80px;
 }
+
+.radio input[type=radio]
+{
+  margin-top: 1px !important;
+}
+
+.w-100
+{
+  width: 100%;
+}
+
+.none
+{
+  display: none;
+}

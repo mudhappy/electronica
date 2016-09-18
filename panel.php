@@ -32,6 +32,9 @@
 			<li class="float-right">
 				<a href="#/tareas">Mis tareas</a>
 			</li>
+			<li class="float-right">
+				<a href="#/agregar">Agregar equipo</a>
+			</li>
 		</ul>
 	</nav>
 </header>

@@ -20,6 +20,21 @@ if(isset($_GET["estados"]))
 	$result = $con->query("SELECT * FROM estados") or trigger_error(mysql_error()); 
 }
 
+if(isset($_GET["familia"]))
+{
+	$result = $con->query("SELECT * FROM familia") or trigger_error(mysql_error()); 
+}
+
+if(isset($_GET["tipoequipo"]))
+{
+	$result = $con->query("SELECT * FROM tipoequipo") or trigger_error(mysql_error()); 
+}
+
+if(isset($_GET["marca"]))
+{
+	$result = $con->query("SELECT * FROM marca") or trigger_error(mysql_error()); 
+}
+
 if(isset($_GET["tareas"]))
 {
 	//$result = $con->query("SELECT * FROM reparaciones 
