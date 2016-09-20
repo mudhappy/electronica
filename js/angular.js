@@ -130,8 +130,21 @@ miApp.controller("adminController",function($scope,$http)
 		$http.get("./php/list.php?marca")
 		.success(function(data)
 		{
-			$scope.datosMarca= data;
+			$scope.datosMarca = data;
 			console.log(data);
+		});
+	}
+
+	$scope.getOrden= function()
+	{
+		$http.get("./php/list.php?orden")
+		.success(function(data)
+		{
+			$scope.datosOrden = parseInt(data[0].orden) + 1 ;
+			console.log(data[0].orden);
+		})
+		.error(function(data){
+			$scope.datosOrden = 0;
 		});
 	}
 

@@ -197,6 +197,14 @@ if(isset($_GET["todo"]))
 		") or trigger_error(mysql_error()); 
 }
 
+if(isset($_GET["orden"]))
+{
+	$result = $con->query("SELECT 
+		rep.orden
+		FROM reparaciones AS rep ORDER BY rep.orden DESC LIMIT 1
+		") or trigger_error(mysql_error()); 
+}
+
 $datos = array();
 
 while($row = $result->fetch_assoc())
