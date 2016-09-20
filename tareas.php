@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-11 center-block no-float">
-		<h3>Mis tareas <button ng-click="listarTareas()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
+		<h3>Mis tareas <button class="btn btn-primary" ng-click="listarTareas()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-12">

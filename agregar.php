@@ -1,10 +1,88 @@
-<div class="row" ng-init="cargarCalendario()">
+<div class="row w-100 none" id="section-to-print">
+	<div class="col-md-12">
+		<h3>Reporte</h3>
+		<h5>Reparación orden <span id="print_orden"></span></h5>
+	</div>
+	<div class="col-md-12">
+		<table class="table table-striped table-responsive no-float">
+			<tr>
+				<th>Nombre</th>
+				<th>Celular</th>
+				<th>Teléfono</th>
+				<th>Domicilio</th>
+			</tr>
+			<tr>
+				<td><span id="print_nombre"></span></td>
+				<td><span id="print_celular"></span></td>
+				<td><span id="print_telefono"></span></td>
+				<td><span id="print_domicilio"></span></td>
+			</tr>
+		</table>
+		<table class="table table-responsive">
+			<tr>
+				<th>Familia</th>
+				<th>Tipo de equipo</th>
+				<th>Marca</th>
+				<th>Modelo</th>
+				<th>Serie</th>
+			</tr>
+			<tr>
+				<td><span id="print_familia"></span></td>
+				<td><span id="print_tipoequipo"></span></td>
+				<td><span id="print_marca"></span></td>
+				<td><span id="print_modelo"></span></td>
+				<td><span id="print_serie"></span></td>
+			</tr>
+		</table>
+		<table class="table table-responsive">
+			<tr>
+				<th>Pila</th>
+				<th>Cable</th>
+				<th>Transformador</th>
+				<th>Antena</th>
+				<th>Control</th>
+			</tr>
+			<tr>
+				<td><span id="print_pila"></span></td>
+				<td><span id="print_cable"></span></td>
+				<td><span id="print_transformador"></span></td>
+				<td><span id="print_antena"></span></td>
+				<td><span id="print_control"></span></td>
+			</tr>
+		</table>
+		<table class="table table-responsive">
+			<tr>
+				<th>Observaciones</th>
+				<th>Falla</th>
+			</tr>
+			<tr>
+				<td><span id="print_observaciones"></span></td>
+				<td><span id="print_falla"></span></td>
+			</tr>
+		</table>
+		<table class="table table-responsive">
+			<tr>
+				<th>Fecha ingreso</th>
+				<th>Prometido</th>
+				<th>Técnico</th>
+				<th>Ubicación</th>
+			</tr>
+			<tr>
+				<td><span id="print_ingreso"></span></td>
+				<td><span id="print_prometido"></span></td>
+				<td><span id="print_tecnico"></span></td>
+				<td><span id="print_ubicacion"></span></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="row hidden-to-print" ng-init="cargarCalendario()">
 	<div class="col-md-10 center-block no-float">
 		<!-- Cliente -->
 		<div class="row">
 			<h2 style="margin: 0;line-height:41px">Ingresar reparación</h2>
 			<div ng-init="getOrden()">
-				<span>Orden : {{ datosOrden }}</span>
+				<h4>Orden : <span id="orden">{{ datosOrden }}</span></h4>
 			</div>
 			<h3>Cliente</h3>
 			<div class="col-md-6">
@@ -32,6 +110,7 @@
 			</div>
 			<div class="col-md-6">
 				<div>
+				<br>
 					<label for="fechaingreso">Ingreso : </label> 
 					<?php 
 					$todayh = getdate();
@@ -87,7 +166,7 @@
 			<h3>Equipo</h3>	
 			<div class="col-md-6">
 				<div class="form-group">
-					<select ng-init="listarFamilia()" id="familia" class="w-100" >
+					<select ng-init="listarFamilia()" id="familia" class="form-control" >
 						<option value="">Familia</option>
 						<option ng-repeat="dato in datosFamilia" value="{{dato.id}}">{{dato.nombre}}</option>
 					</select>
@@ -95,7 +174,7 @@
 				</div>
 
 				<div class="form-group">
-					<select ng-init="listarTipoEquipo()" id="tipoequipo" class="w-100" ng-model="tipoequipo">
+					<select ng-init="listarTipoEquipo()" id="tipoequipo" class="form-control" ng-model="tipoequipo">
 						<option value="">Tipo de equipo</option>
 						<option ng-repeat="dato in datosTipoEquipo" value="{{dato.id}}">{{dato.nombre}}</option>
 					</select>
@@ -103,7 +182,7 @@
 				</div>
 
 				<div class="form-group">
-					<select ng-init="listarMarca()" id="marca" class="w-100" ng-model="marca">
+					<select ng-init="listarMarca()" id="marca" class="form-control" ng-model="marca">
 						<option value="">Marca</option>
 						<option ng-repeat="dato in datosMarca" value="{{dato.id}}">{{dato.nombre}}</option>
 					</select>
@@ -168,37 +247,41 @@
 				</div>
 			</div>
 			<div class="col-md-12">
-				
+
 			</div>
 		</div>
-	
+
 		<div class="row  pd-20">
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="">Asignar reparación a:</label>
-					<select id="tecnico" ng-init="listarTecnicos()" ng-model="tecnico">
+					<select id="tecnico" ng-init="listarTecnicos()" class="form-control" ng-model="tecnico">
 						<option value="">Técnico</option>
 						<option ng-repeat="dato in datosTecnico" value="{{dato.id}}">{{dato.usuario}}</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-md-6" style="text-align:right">
+			<br>
 				<label for="fechaprometido">Prometido : </label> 
 				<input id="fechaprometido" class='datepicker'> 
 			</div>
 		</div>
-	
 		<div class="row  pd-20 text-center">
 			<div class="col-md-4">
-				<button ng-click="nuevoEquipo()" class="btn btn-success">CONFIRMAR {{messageInsert}}</button>
+				<button ng-click="nuevoEquipo()" class="btn btn-success">CONFIRMAR</button>
+				{{messageInsert}}
 			</div>
 			<div class="col-md-4">
-				<button class="btn btn-primary">INGRESAR OTRO</button>
+				<button ng-click="limpiarIngresar()" class="btn btn-primary">INGRESAR OTRO</button>
+				{{messageOther}}
 			</div>
 			<div class="col-md-4">
-				<button class="btn btn-default">IMPRIMIR</button>
+				<button  ng-click="imprimirAgregado()" class="btn btn-default">IMPRIMIR</button>
 			</div>
 		</div>
 
+	</div>
+	<div>
 	</div>
 </div>

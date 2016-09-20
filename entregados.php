@@ -2,7 +2,7 @@
 	<div class="col-md-11 center-block no-float">
 		<h3>
 			<span>Equipos entregados</span>
-			<button ng-click="listarEntregados()">
+			<button  class="btn btn-primary" ng-click="listarEntregados()">
 				<i class="glyphicon glyphicon-refresh"></i>
 			</button>
 			<button id="btnExport" class="btn btn-success" onclick="fnExcelReport();"> Exportar a excel </button>

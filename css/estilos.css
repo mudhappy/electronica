@@ -9,6 +9,7 @@
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
+    display: block;
   }
   .col-md-10
   {
@@ -20,6 +21,10 @@
   .pd-20
   {
   	padding: 0px !important;
+  }
+  .hidden-to-print
+  {
+    display: none !important;
   }
 }
 

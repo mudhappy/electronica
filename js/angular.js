@@ -271,6 +271,71 @@ miApp.controller("adminController",function($scope,$http)
 		}
 	}
 
+
+
+	$scope.limpiarIngresar = function()
+	{
+		var familia = document.getElementById("familia").value = "";
+		var tipoequipo = document.getElementById("tipoequipo").value = "";
+		var marca = document.getElementById("marca").value = "";
+		var modelo = document.getElementById("modelo").value = "";
+		var serie = document.getElementById("serie").value = "";
+
+		var pilas = document.getElementById("pilas").checked = false;
+
+
+		var pilas = document.getElementById("pilas").checked = false;
+		var cable = document.getElementById("cable").checked = false;
+		var transformador = document.getElementById("transformador").checked = false;
+		var antena = document.getElementById("antena").checked = false;
+		var control = document.getElementById("control").checked = false;
+
+
+		var observaciones = document.getElementById("observaciones").value = "";
+		var falla = document.getElementById("falla").value = "";
+
+		var ubicacion = document.getElementById("ubicacion").value = "";
+
+
+		var fechaprometido = document.getElementById("fechaprometido").value = "";
+
+		$scope.messageOther = "Campos limpiados";
+		$scope.messageInsert = "";
+	}
+
+	$scope.imprimirAgregado = function()
+	{
+
+		document.getElementById("print_nombre").innerHTML = document.getElementById("nombre").value;
+		document.getElementById("print_celular").innerHTML = document.getElementById("celular").value;
+		document.getElementById("print_telefono").innerHTML = document.getElementById("telefono").value;
+		document.getElementById("print_domicilio").innerHTML = document.getElementById("domicilio").value;
+
+		document.getElementById("print_familia").innerHTML = document.getElementById("familia").options[document.getElementById('familia').selectedIndex].text;
+		document.getElementById("print_tipoequipo").innerHTML = document.getElementById("tipoequipo").options[document.getElementById('tipoequipo').selectedIndex].text;
+		document.getElementById("print_marca").innerHTML = document.getElementById("marca").options[document.getElementById('marca').selectedIndex].text;
+		document.getElementById("print_modelo").innerHTML = document.getElementById("modelo").value;
+		document.getElementById("print_serie").innerHTML = document.getElementById("serie").value;
+
+		document.getElementById("print_pila").innerHTML =  noToBool(toBool(document.getElementById("pilas").checked));
+		document.getElementById("print_cable").innerHTML = noToBool(toBool(document.getElementById("cable").checked));
+		document.getElementById("print_transformador").innerHTML = noToBool(toBool(document.getElementById("transformador").checked));
+		document.getElementById("print_antena").innerHTML = noToBool(toBool(document.getElementById("antena").checked));
+		document.getElementById("print_control").innerHTML = noToBool(toBool(document.getElementById("control").checked));
+
+		document.getElementById("print_observaciones").innerHTML = document.getElementById("observaciones").value;
+		document.getElementById("print_falla").innerHTML = document.getElementById("falla").value;
+
+		document.getElementById("print_ingreso").innerHTML = document.getElementById("fechaingreso").value;
+		document.getElementById("print_prometido").innerHTML = document.getElementById("fechaprometido").value;
+		document.getElementById("print_tecnico").innerHTML = document.getElementById("tecnico").options[document.getElementById('tecnico').selectedIndex].text;
+		document.getElementById("print_ubicacion").innerHTML = document.getElementById("ubicacion").value;
+
+		document.getElementById("print_orden").innerHTML = document.getElementById("orden").innerHTML;
+
+		window.print();
+	}
+
 	$scope.nuevoEquipo = function()
 	{
 		$scope.messageInsert = "...";
@@ -304,16 +369,6 @@ miApp.controller("adminController",function($scope,$http)
 		var modelo = document.getElementById("modelo").value;
 		var serie = document.getElementById("serie").value;
 		
-		function toBool(v)
-		{
-			if(v == true)
-			{
-				return 1
-			}else
-			{
-				return 0
-			}
-		}
 
 		var pilas = toBool(document.getElementById("pilas").checked);
 		var cable = toBool(document.getElementById("cable").checked);
@@ -398,6 +453,8 @@ miApp.controller("adminController",function($scope,$http)
 				.success(function()
 				{
 					$scope.messageInsert = "Agregado";
+					$scope.messageOther = "";
+
 				//$scope.listarMarca();
 			})
 				.error(function(data, status, headers, config){
@@ -538,3 +595,27 @@ function fnExcelReport()
     return (sa);
 }
 
+
+
+function toBool(v)
+{
+	if(v == true)
+	{
+		return 1
+	}else
+	{
+		return 0
+	}
+}
+
+
+function noToBool(v)
+{
+	if(v == 1)
+	{
+		return "Si"
+	}else
+	{
+		return "No"
+	}
+}
