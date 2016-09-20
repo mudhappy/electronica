@@ -301,6 +301,8 @@ miApp.controller("adminController",function($scope,$http)
 
 		$scope.messageOther = "Campos limpiados";
 		$scope.messageInsert = "";
+
+		$scope.getOrden();
 	}
 
 	$scope.imprimirAgregado = function()
