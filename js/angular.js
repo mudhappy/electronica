@@ -115,9 +115,9 @@ miApp.controller("adminController",function($scope,$http)
 		});
 	}
 
-	$scope.listarTipoEquipo = function()
+	$scope.listarFamiliaTipoEquipo = function(dato)
 	{
-		$http.get("./php/list.php?tipoequipo")
+		$http.get("./php/list.php?familiatipoequipo="+dato)
 		.success(function(data)
 		{
 			$scope.datosTipoEquipo = data;
@@ -125,7 +125,7 @@ miApp.controller("adminController",function($scope,$http)
 		});
 	}
 
-	$scope.listarMarca = function()
+	$scope.listarMarca = function(dato)
 	{
 		$http.get("./php/list.php?marca")
 		.success(function(data)
@@ -245,7 +245,7 @@ miApp.controller("adminController",function($scope,$http)
 				$http.post("./php/acciones.php?agregarTipoEquipo",{"tipoequipo":tipoequipo,"idFamilia":idFamilia})
 				.success(function()
 				{
-					$scope.listarTipoEquipo();
+					$scope.listarFamiliaTipoEquipo(idFamilia);
 				})
 				.error(function(data, status, headers, config){
 					console.log("Error " + data);
@@ -275,81 +275,275 @@ miApp.controller("adminController",function($scope,$http)
 
 	$scope.limpiarIngresar = function()
 	{
-		var familia = document.getElementById("familia").value = "";
-		var tipoequipo = document.getElementById("tipoequipo").value = "";
-		var marca = document.getElementById("marca").value = "";
-		var modelo = document.getElementById("modelo").value = "";
-		var serie = document.getElementById("serie").value = "";
+		// var nombre = document.getElementById("nombre").value = "";
+		// var celular = document.getElementById("celular").value = "";
+		// var telefono = document.getElementById("telefono").value = "";
+		// var domicilio = document.getElementById("domicilio").value = "";
 
-		var pilas = document.getElementById("pilas").checked = false;
+		// var familia = document.getElementById("familia").value = "";
+		// var tipoequipo = document.getElementById("tipoequipo").value = "";
+		// var marca = document.getElementById("marca").value = "";
+		// var modelo = document.getElementById("modelo").value = "";
+		// var serie = document.getElementById("serie").value = "";
 
-
-		var pilas = document.getElementById("pilas").checked = false;
-		var cable = document.getElementById("cable").checked = false;
-		var transformador = document.getElementById("transformador").checked = false;
-		var antena = document.getElementById("antena").checked = false;
-		var control = document.getElementById("control").checked = false;
+		// var pilas = document.getElementById("pilas").checked = false;
 
 
-		var observaciones = document.getElementById("observaciones").value = "";
-		var falla = document.getElementById("falla").value = "";
+		// var pilas = document.getElementById("pilas").checked = false;
+		// var cable = document.getElementById("cable").checked = false;
+		// var transformador = document.getElementById("transformador").checked = false;
+		// var antena = document.getElementById("antena").checked = false;
+		// var control = document.getElementById("control").checked = false;
 
-		var ubicacion = document.getElementById("ubicacion").value = "";
+
+		// var observaciones = document.getElementById("observaciones").value = "";
+		// var falla = document.getElementById("falla").value = "";
+
+		// var ubicacion = document.getElementById("ubicacion").value = "";
 
 
-		var fechaprometido = document.getElementById("fechaprometido").value = "";
+		// var fechaprometido = document.getElementById("fechaprometido").value = "";
 
-		$scope.messageOther = "Campos limpiados";
-		$scope.messageInsert = "";
+		// $scope.messageOther = "Campos limpiados";
+		// $scope.messageInsert = "";
 
-		$scope.getOrden();
+		// $scope.getOrden();
+
+		$scope.messageOther = "...";
+		var nombre = document.getElementById("nombre").value;
+		var celular = document.getElementById("celular").value;
+		var telefono = document.getElementById("telefono").value;
+		var domicilio = document.getElementById("domicilio").value;
+
+		var fechaprometido = document.getElementById("fechaprometido").value;
+		var cfechaprometido = fechaprometido.split("-");
+		fechaprometido = new Date(cfechaprometido[2],toMes(cfechaprometido[1]),cfechaprometido[0]);
+		console.log(fechaprometido);
+
+		var fechaingreso = document.getElementById("fechaingreso").value;
+		var cfechaingreso = fechaingreso.split("-");
+		fechaingreso = new Date(cfechaingreso[2],toMes(cfechaingreso[1]),cfechaingreso[0]);
+
+
+
+		var familia = document.getElementById("familia").value;
+		var tipoequipo = document.getElementById("tipoequipo").value;
+		var marca = document.getElementById("marca").value;
+		var modelo = document.getElementById("modelo").value;
+		var serie = document.getElementById("serie").value;
+		
+
+		var pilas = toBool(document.getElementById("pilas").checked);
+		var cable = toBool(document.getElementById("cable").checked);
+		var transformador = toBool(document.getElementById("transformador").checked);
+		var antena = toBool(document.getElementById("antena").checked);
+		var control = toBool(document.getElementById("control").checked);
+
+		var tecnico = document.getElementById("tecnico").value;
+
+		var observaciones = document.getElementById("observaciones").value;
+		var falla = document.getElementById("falla").value;
+
+		var ubicacion = document.getElementById("ubicacion").value;
+
+		
+
+		if(nombre === "" || celular === "" || telefono === "" || domicilio === "" )
+		{
+			$scope.messageOther = "*Falta completar cliente";
+		}else if(tecnico === "")
+		{
+			$scope.messageOther = "*Seleccioná un técnico"
+		}else if(familia === "")
+		{
+			$scope.messageOther = "*Seleccioná una familia"
+		}else if(tipoequipo === "")
+		{
+			$scope.messageOther = "*Seleccioná un tipo de equipo"
+		}else if(marca === "")
+		{
+			$scope.messageOther = "*Seleccioná una marca"
+		}else if(fechaprometido.isValid() === false)
+		{
+			$scope.messageOther = "*Seleccioná una fecha prometida"
+		}else
+		{
+			$scope.messageOther = "Agregando ...";
+
+				$http.post("./php/acciones.php?agregarEquipo",{
+					"nombre": nombre,
+					"celular": celular,
+					"telefono": telefono,
+					"domicilio": domicilio,
+					"fechaingreso": fechaingreso,
+					"fechaprometido": fechaprometido,
+					"familia": familia,
+					"tipoequipo": tipoequipo,
+					"marca": marca,
+					"modelo": modelo,
+					"serie": serie,
+					"pilas": pilas,
+					"cable": cable,
+					"transformador": transformador,
+					"antena": antena,
+					"control": control,
+					"tecnico": tecnico,
+					"observaciones": observaciones,
+					"falla": falla,
+					"ubicacion": ubicacion
+				})
+				.success(function()
+				{
+					$scope.messageInsert = "";
+					$scope.messageOther = "";
+					location.href="javascript:location.reload()";
+
+				//$scope.listarMarca();
+			})
+				.error(function(data, status, headers, config){
+					console.log("Error " + data);
+				});
+			}
+
+
 	}
 
 	$scope.imprimirAgregado = function()
 	{
 
-		document.getElementById("print_nombre").innerHTML = document.getElementById("nombre").value;
-		document.getElementById("print_celular").innerHTML = document.getElementById("celular").value;
-		document.getElementById("print_telefono").innerHTML = document.getElementById("telefono").value;
-		document.getElementById("print_domicilio").innerHTML = document.getElementById("domicilio").value;
+		// 
+		$scope.messageImprimir = "...";
+		var nombre = document.getElementById("nombre").value;
+		var celular = document.getElementById("celular").value;
+		var telefono = document.getElementById("telefono").value;
+		var domicilio = document.getElementById("domicilio").value;
 
-		document.getElementById("print_familia").innerHTML = document.getElementById("familia").options[document.getElementById('familia').selectedIndex].text;
-		document.getElementById("print_tipoequipo").innerHTML = document.getElementById("tipoequipo").options[document.getElementById('tipoequipo').selectedIndex].text;
-		document.getElementById("print_marca").innerHTML = document.getElementById("marca").options[document.getElementById('marca').selectedIndex].text;
-		document.getElementById("print_modelo").innerHTML = document.getElementById("modelo").value;
-		document.getElementById("print_serie").innerHTML = document.getElementById("serie").value;
+		var fechaprometido = document.getElementById("fechaprometido").value;
+		var cfechaprometido = fechaprometido.split("-");
+		fechaprometido = new Date(cfechaprometido[2],toMes(cfechaprometido[1]),cfechaprometido[0]);
+		console.log(fechaprometido);
 
-		document.getElementById("print_pila").innerHTML =  noToBool(toBool(document.getElementById("pilas").checked));
-		document.getElementById("print_cable").innerHTML = noToBool(toBool(document.getElementById("cable").checked));
-		document.getElementById("print_transformador").innerHTML = noToBool(toBool(document.getElementById("transformador").checked));
-		document.getElementById("print_antena").innerHTML = noToBool(toBool(document.getElementById("antena").checked));
-		document.getElementById("print_control").innerHTML = noToBool(toBool(document.getElementById("control").checked));
+		var fechaingreso = document.getElementById("fechaingreso").value;
+		var cfechaingreso = fechaingreso.split("-");
+		fechaingreso = new Date(cfechaingreso[2],toMes(cfechaingreso[1]),cfechaingreso[0]);
 
-		document.getElementById("print_observaciones").innerHTML = document.getElementById("observaciones").value;
-		document.getElementById("print_falla").innerHTML = document.getElementById("falla").value;
 
-		document.getElementById("print_ingreso").innerHTML = document.getElementById("fechaingreso").value;
-		document.getElementById("print_prometido").innerHTML = document.getElementById("fechaprometido").value;
-		document.getElementById("print_tecnico").innerHTML = document.getElementById("tecnico").options[document.getElementById('tecnico').selectedIndex].text;
-		document.getElementById("print_ubicacion").innerHTML = document.getElementById("ubicacion").value;
 
-		document.getElementById("print_orden").innerHTML = document.getElementById("orden").innerHTML;
+		var familia = document.getElementById("familia").value;
+		var tipoequipo = document.getElementById("tipoequipo").value;
+		var marca = document.getElementById("marca").value;
+		var modelo = document.getElementById("modelo").value;
+		var serie = document.getElementById("serie").value;
+		
 
-		window.print();
+		var pilas = toBool(document.getElementById("pilas").checked);
+		var cable = toBool(document.getElementById("cable").checked);
+		var transformador = toBool(document.getElementById("transformador").checked);
+		var antena = toBool(document.getElementById("antena").checked);
+		var control = toBool(document.getElementById("control").checked);
+
+		var tecnico = document.getElementById("tecnico").value;
+
+		var observaciones = document.getElementById("observaciones").value;
+		var falla = document.getElementById("falla").value;
+
+		var ubicacion = document.getElementById("ubicacion").value;
+
+		
+
+		if(nombre === "" || celular === "" || telefono === "" || domicilio === "" )
+		{
+			$scope.messageImprimir = "*Falta completar cliente";
+		}else if(tecnico === "")
+		{
+			$scope.messageImprimir = "*Seleccioná un técnico"
+		}else if(familia === "")
+		{
+			$scope.messageImprimir = "*Seleccioná una familia"
+		}else if(tipoequipo === "")
+		{
+			$scope.messageImprimir = "*Seleccioná un tipo de equipo"
+		}else if(marca === "")
+		{
+			$scope.messageImprimir = "*Seleccioná una marca"
+		}else if(fechaprometido.isValid() === false)
+		{
+			$scope.messageImprimir = "*Seleccioná una fecha prometida"
+		}else
+		{
+			$scope.messageImprimir = "Agregando ...";
+
+				$http.post("./php/acciones.php?agregarEquipo",{
+					"nombre": nombre,
+					"celular": celular,
+					"telefono": telefono,
+					"domicilio": domicilio,
+					"fechaingreso": fechaingreso,
+					"fechaprometido": fechaprometido,
+					"familia": familia,
+					"tipoequipo": tipoequipo,
+					"marca": marca,
+					"modelo": modelo,
+					"serie": serie,
+					"pilas": pilas,
+					"cable": cable,
+					"transformador": transformador,
+					"antena": antena,
+					"control": control,
+					"tecnico": tecnico,
+					"observaciones": observaciones,
+					"falla": falla,
+					"ubicacion": ubicacion
+				})
+				.success(function()
+				{
+					$scope.messageInsert = "";
+					$scope.messageOther = "";
+
+					document.getElementById("print_nombre").innerHTML = document.getElementById("nombre").value;
+					document.getElementById("print_celular").innerHTML = document.getElementById("celular").value;
+					document.getElementById("print_telefono").innerHTML = document.getElementById("telefono").value;
+					document.getElementById("print_domicilio").innerHTML = document.getElementById("domicilio").value;
+
+					document.getElementById("print_familia").innerHTML = document.getElementById("familia").options[document.getElementById('familia').selectedIndex].text;
+					document.getElementById("print_tipoequipo").innerHTML = document.getElementById("tipoequipo").options[document.getElementById('tipoequipo').selectedIndex].text;
+					document.getElementById("print_marca").innerHTML = document.getElementById("marca").options[document.getElementById('marca').selectedIndex].text;
+					document.getElementById("print_modelo").innerHTML = document.getElementById("modelo").value;
+					document.getElementById("print_serie").innerHTML = document.getElementById("serie").value;
+
+					document.getElementById("print_pila").innerHTML =  noToBool(toBool(document.getElementById("pilas").checked));
+					document.getElementById("print_cable").innerHTML = noToBool(toBool(document.getElementById("cable").checked));
+					document.getElementById("print_transformador").innerHTML = noToBool(toBool(document.getElementById("transformador").checked));
+					document.getElementById("print_antena").innerHTML = noToBool(toBool(document.getElementById("antena").checked));
+					document.getElementById("print_control").innerHTML = noToBool(toBool(document.getElementById("control").checked));
+
+					document.getElementById("print_observaciones").innerHTML = document.getElementById("observaciones").value;
+					document.getElementById("print_falla").innerHTML = document.getElementById("falla").value;
+
+					document.getElementById("print_ingreso").innerHTML = document.getElementById("fechaingreso").value;
+					document.getElementById("print_prometido").innerHTML = document.getElementById("fechaprometido").value;
+					document.getElementById("print_tecnico").innerHTML = document.getElementById("tecnico").options[document.getElementById('tecnico').selectedIndex].text;
+					document.getElementById("print_ubicacion").innerHTML = document.getElementById("ubicacion").value;
+
+					document.getElementById("print_orden").innerHTML = document.getElementById("orden").innerHTML;
+
+
+					$scope.messageImprimir = "Listo para imprimir";
+					window.print();
+
+				//$scope.listarMarca();
+			})
+				.error(function(data, status, headers, config){
+					console.log("Error " + data);
+				});
+			}
+		// 
+
 	}
 
 	$scope.nuevoEquipo = function()
 	{
 		$scope.messageInsert = "...";
-		/*
-		nombre,celular,telefono,domicilio,
-		fechaingreso,fechaprometido,
-		familia,tipoequipo,marca,modelo,serie,
-		pilas,cable,transformador,antena,control,
-		tecnico,
-		observaciones,falla,
-		ubicacion
-		*/
 		var nombre = document.getElementById("nombre").value;
 		var celular = document.getElementById("celular").value;
 		var telefono = document.getElementById("telefono").value;
@@ -392,43 +586,22 @@ miApp.controller("adminController",function($scope,$http)
 			$scope.messageInsert = "*Falta completar cliente";
 		}else if(tecnico === "")
 		{
-			$scope.messageInsert = "*Tienes que seleccionar un técnico"
+			$scope.messageInsert = "*Seleccioná un técnico"
 		}else if(familia === "")
 		{
-			$scope.messageInsert = "*Tienes que seleccionar una familia"
+			$scope.messageInsert = "*Seleccioná una familia"
 		}else if(tipoequipo === "")
 		{
-			$scope.messageInsert = "*Tienes que seleccionar un tipo de equipo"
+			$scope.messageInsert = "*Seleccioná un tipo de equipo"
 		}else if(marca === "")
 		{
-			$scope.messageInsert = "*Tienes que seleccionar una marca"
+			$scope.messageInsert = "*Seleccioná una marca"
+		}else if(fechaprometido.isValid() === false)
+		{
+			$scope.messageInsert = "*Seleccioná una fecha prometida"
 		}else
 		{
 			$scope.messageInsert = "Agregando ...";
-
-			/*
-				"nombre": nombre,
-				"celular": celular,
-				"telefono": telefono,
-				"domicilio": domicilio,
-				"fechaingreso": fechaingreso,
-				"fechaprometido": fechaprometido,
-				"familia": familia,
-				"tipoequipo": tipoequipo,
-				"marca": marca,
-				"modelo": modelo,
-				"serie": serie,
-				"pilas": pilas,
-				"cable": cable,
-				"transformador": transformador,
-				"antena": antena,
-				"control": control,
-				"tecnico": tecnico,
-				"observaciones": observaciones,
-				"falla": falla,
-				"ubicacion": ubicacion
-				*/
-
 
 				$http.post("./php/acciones.php?agregarEquipo",{
 					"nombre": nombre,
@@ -454,8 +627,9 @@ miApp.controller("adminController",function($scope,$http)
 				})
 				.success(function()
 				{
-					$scope.messageInsert = "Agregado";
+					$scope.messageInsert = "";
 					$scope.messageOther = "";
+					location.href = "#/tareas";
 
 				//$scope.listarMarca();
 			})
@@ -512,10 +686,97 @@ miApp.config(function($routeProvider)
 	}).when("/agregar",
 	{
 		templateUrl: "./agregar.php"
+	}).when("/ver/:idReparacion",
+	{
+		templateUrl: "./ver.php",
+		controller: "equipoContenido"
 	}).otherwise(
 	{
 		redirectTo: "/tareas"
 	})
+});
+
+miApp.controller('equipoContenido', function($scope, $routeParams,$http) 
+{
+	$scope.paramEquipo = parseInt($routeParams.idReparacion);
+
+	$scope.listarEquipo = function(idEquipo)
+	{
+		$http.get("./php/list.php?equipo="+idEquipo)
+		.success(function(data)
+		{
+			$scope.datosEquipo = data;
+			$scope.nombre = data[0].nombre;
+			$scope.celular = data[0].celular;
+			$scope.telefono = data[0].telefono;
+			$scope.domicilio = data[0].domicilio;
+
+			var fechaingreso = (data[0].fechaingreso).split("-");
+			$scope.fechaingreso = fechaingreso[2] +"-"+ toMesReverse(fechaingreso[1])+"-"+fechaingreso[0];
+
+			var fechaprometido = (data[0].fechaprometido).split("-");
+			$scope.fechaprometido = fechaprometido[2] +"-"+ toMesReverse(fechaprometido[1])+"-"+fechaprometido[0];
+
+			if(data[0].fechaaviso === null)
+			{
+				$scope.fechaaviso = "";
+			}else
+			{
+				var fechaaviso = (data[0].fechaaviso).split("-");
+				$scope.fechaaviso = fechaaviso[2] +"-"+ toMesReverse(fechaaviso[1])+"-"+fechaaviso[0];
+			}
+			
+
+				$scope.avisado = noToBool(data[0].avisado);
+
+
+			$scope.familia = data[0].familia;
+			$scope.tipoequipo = data[0].tipoequipo;
+			$scope.marca = data[0].marca;
+			$scope.modelo = data[0].modelo;
+			$scope.serie = data[0].serie;
+
+			$scope.tecnico = data[0].tecnico;
+
+			$scope.observaciones = data[0].observaciones;
+			$scope.falla = data[0].falla;
+			$scope.ubicacion = data[0].ubicacion;
+
+
+			$scope.pilas = noToBool(data[0].pilas);
+			$scope.cable = noToBool(data[0].cable);
+			$scope.transformador = noToBool(data[0].transformador);
+			$scope.antena = noToBool(data[0].antena);
+			$scope.control = noToBool(data[0].control);
+
+
+			$scope.estado = data[0].estado;
+			$scope.entregado = noToBool(data[0].entregado);
+
+			$scope.presupuestado = isNull(data[0].presupuesto);
+			$scope.presupuestoaceptado = data[0].presupuestoaceptado;
+
+			$scope.presupuesto = data[0].presupuesto;
+
+			if($scope.presupuestado === "No")
+			{
+				$scope.simbolo = "";
+			}else
+			{
+				$scope.simbolo = data[0].simbolo;
+			}	
+
+			$scope.informecliente = data[0].informecliente;
+			$scope.informetecnico = data[0].informetecnico;
+
+
+			console.log(data);
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
 });
 
 function toMes(mes)
@@ -561,6 +822,52 @@ function toMes(mes)
 	}
 	return mes;
 }
+
+
+function toMesReverse(mes)
+{
+	switch(mes)
+	{
+		case "01":
+		mes = "Ene";
+		break; 
+		case "02":
+		mes = "Feb";
+		break; 
+		case "03":
+		mes = "Mar";
+		break; 
+		case "04":
+		mes = "Abr";
+		break; 
+		case "05":
+		mes = "May";
+		break; 
+		case "06":
+		mes = "Jun";
+		break; 
+		case "07":
+		mes = "Jul";
+		break; 
+		case "08":
+		mes = "Ago";
+		break; 
+		case "09":
+		mes = "Sep";
+		break; 
+		case "10":
+		mes = "Oct";
+		break; 
+		case "11":
+		mes = "Nov";
+		break; 
+		case "12":
+		mes = "Dic";
+		break; 
+	}
+	return mes;
+}
+
 
 
 function fnExcelReport()
@@ -621,3 +928,33 @@ function noToBool(v)
 		return "No"
 	}
 }
+
+function isNull(v)
+{
+	if(v == null)
+	{
+		return "No"
+	}else
+	{
+		return "Si"
+	}
+}
+
+function toggle_visibility(id) 
+{
+    var e = document.getElementById(id);
+    if (e.style.display == 'block' || e.style.display=='')
+    {
+        e.style.display = 'none';
+    }
+    else 
+    {
+        e.style.display = 'block';
+    }
+}
+
+Date.prototype.isValid = function () {
+    // An invalid date object returns NaN for getTime() and NaN is the only
+    // object not strictly equal to itself.
+    return this.getTime() === this.getTime();
+}; 

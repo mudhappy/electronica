@@ -115,46 +115,7 @@
 					<?php 
 					$todayh = getdate();
 					$d = $todayh['mday'];
-					$m = $todayh['month'];
-					switch ($m)
-					{
-						case "January":
-						$m = "Ene";
-						break;
-						case "February":
-						$m = "Feb";
-						break;
-						case "March":
-						$m = "Mar";
-						break;
-						case "April":
-						$m = "Abr";
-						break;
-						case "May":
-						$m = "May";
-						break;
-						case "June":
-						$m = "Jun";
-						break;
-						case "July":
-						$m = "Jul";
-						break;
-						case "August":
-						$m = "Ago";
-						break;
-						case "September":
-						$m = "Sep";
-						break;
-						case "October":
-						$m = "Oct";
-						break;
-						case "November":
-						$m = "Nov";
-						break;
-						case "December":
-						$m = "Dic";
-						break;
-					}
+					$m = aMes($todayh['month']);
 					$y = $todayh['year'];
 					?>
 					<input id="fechaingreso" value="<?php echo $d."-".$m."-".$y ?>" class='datepicker'> 
@@ -168,13 +129,13 @@
 				<div class="form-group">
 					<select ng-init="listarFamilia()" id="familia" class="form-control" >
 						<option value="">Familia</option>
-						<option ng-repeat="dato in datosFamilia" value="{{dato.id}}">{{dato.nombre}}</option>
+						<option ng-repeat="dato in datosFamilia" value="{{dato.id}}" ng-click="listarFamiliaTipoEquipo(dato.id)">{{dato.nombre}}</option>
 					</select>
 					<a ng-click="verNuevaFamilia()" class="pointer">Nueva familia</a>
 				</div>
 
 				<div class="form-group">
-					<select ng-init="listarTipoEquipo()" id="tipoequipo" class="form-control" ng-model="tipoequipo">
+					<select id="tipoequipo" class="form-control" ng-model="tipoequipo">
 						<option value="">Tipo de equipo</option>
 						<option ng-repeat="dato in datosTipoEquipo" value="{{dato.id}}">{{dato.nombre}}</option>
 					</select>
@@ -254,7 +215,7 @@
 		<div class="row  pd-20">
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="">Asignar reparación a:</label>
+					<label for="">Reparación por:</label>
 					<select id="tecnico" ng-init="listarTecnicos()" class="form-control" ng-model="tecnico">
 						<option value="">Técnico</option>
 						<option ng-repeat="dato in datosTecnico" value="{{dato.id}}">{{dato.usuario}}</option>
@@ -278,6 +239,7 @@
 			</div>
 			<div class="col-md-4">
 				<button  ng-click="imprimirAgregado()" class="btn btn-default">IMPRIMIR</button>
+				{{messageImprimir}}
 			</div>
 		</div>
 
@@ -285,3 +247,51 @@
 	<div>
 	</div>
 </div>
+
+<?php 
+// Funciones PHP Date
+function aMes($m)
+{
+	switch ($m)
+	{
+		case "January":
+		$m = "Ene";
+		break;
+		case "February":
+		$m = "Feb";
+		break;
+		case "March":
+		$m = "Mar";
+		break;
+		case "April":
+		$m = "Abr";
+		break;
+		case "May":
+		$m = "May";
+		break;
+		case "June":
+		$m = "Jun";
+		break;
+		case "July":
+		$m = "Jul";
+		break;
+		case "August":
+		$m = "Ago";
+		break;
+		case "September":
+		$m = "Sep";
+		break;
+		case "October":
+		$m = "Oct";
+		break;
+		case "November":
+		$m = "Nov";
+		break;
+		case "December":
+		$m = "Dic";
+		break;
+	}
+	return $m;
+}
+
+?>

@@ -25,7 +25,7 @@
 			<tr ng-repeat="dato in datosTaller | filter:{orden: orden} ">
 				<td class="col-actions">
 					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>
-					<button class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></button>
+					<a href="#/ver/{{dato.orden}}" class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></a>
 				</td>
 				<td>{{dato.orden}}</td>
 				<td>{{dato.tipoequipo}}</td>
