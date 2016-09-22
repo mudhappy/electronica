@@ -47,8 +47,11 @@ if(isset($_GET["equipo"]))
 		rep.telefono, 
 		rep.domicilio, 
 		fam.nombre as familia,
+		fam.id as familiaid,
 		tip.nombre as tipoequipo, 
+		tip.id as tipoequipoid, 
 		mar.nombre as marca,
+		mar.id as marcaid,
 		rep.modelo as modelo,
 		rep.serie as serie,
 		rep.serie as serie,
@@ -56,11 +59,15 @@ if(isset($_GET["equipo"]))
 		rep.falla,
 		rep.ubicacion,
 		est.nombre as estado,
+		est.id as estadoid,
 		rep.fechaprometido,
 		rep.presupuestoaceptado,
 		tec.usuario as tecnico,
+		tec.id as tecnicoid,
 		rep.fechaingreso,
 		rep.presupuesto,
+		rep.informecliente,
+		rep.informetecnico,
 		mon.simbolo,
 		rep.pilas,
 		rep.cable,
@@ -113,7 +120,7 @@ if(isset($_GET["tareas"]))
 		INNER JOIN estados AS est ON rep.estado = est.id
 		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
 		WHERE rep.tecnico = '".$_SESSION['id']."' 
-		AND rep.entregado = 0
+		AND rep.entregado = 0 ORDER BY orden ASC
 		") or trigger_error(mysql_error()); 
 }
 
@@ -145,7 +152,7 @@ if(isset($_GET["terminados"]))
 		INNER JOIN estados AS est ON rep.estado = est.id
 		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
 		WHERE rep.estado = 5 
-		AND rep.entregado = 0
+		AND rep.entregado = 0 ORDER BY orden ASC
 		") or trigger_error(mysql_error()); 
 }
 
@@ -176,7 +183,7 @@ if(isset($_GET["entregados"]))
 		INNER JOIN tecnico AS tec ON rep.tecnico = tec.id
 		INNER JOIN estados AS est ON rep.estado = est.id
 		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
-		WHERE rep.entregado = 1
+		WHERE rep.entregado = 1 ORDER BY orden ASC
 		") or trigger_error(mysql_error()); 
 }
 
@@ -208,7 +215,7 @@ if(isset($_GET["taller"]))
 		INNER JOIN tecnico AS tec ON rep.tecnico = tec.id
 		INNER JOIN estados AS est ON rep.estado = est.id
 		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
-		WHERE rep.entregado = 0
+		WHERE rep.entregado = 0 ORDER BY orden ASC
 		") or trigger_error(mysql_error()); 
 }
 
@@ -243,7 +250,7 @@ if(isset($_GET["todo"]))
 		INNER JOIN marca AS mar ON rep.marca = mar.id 
 		INNER JOIN tecnico AS tec ON rep.tecnico = tec.id
 		INNER JOIN estados AS est ON rep.estado = est.id
-		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
+		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id ORDER BY orden ASC
 		") or trigger_error(mysql_error()); 
 }
 

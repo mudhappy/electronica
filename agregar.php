@@ -77,10 +77,10 @@
 	</div>
 </div>
 <div class="row hidden-to-print" ng-init="cargarCalendario()">
-	<div class="col-md-10 center-block no-float">
+	<div class="col-md-11 center-block no-float">
 		<!-- Cliente -->
 		<div class="row">
-			<h2 style="margin: 0;line-height:41px">Ingresar reparación</h2>
+			<h2 style="margin: 0;margin-top:20px;line-height:41px">Ingresar reparación</h2>
 			<div ng-init="getOrden()">
 				<h4>Orden : <span id="orden">{{ datosOrden }}</span></h4>
 			</div>
@@ -110,7 +110,6 @@
 			</div>
 			<div class="col-md-6">
 				<div>
-				<br>
 					<label for="fechaingreso">Ingreso : </label> 
 					<?php 
 					$todayh = getdate();
@@ -118,7 +117,7 @@
 					$m = aMes($todayh['month']);
 					$y = $todayh['year'];
 					?>
-					<input id="fechaingreso" value="<?php echo $d."-".$m."-".$y ?>" class='datepicker'> 
+					<input id="fechaingreso" value="<?php echo $d."-".$m."-".$y ?>" class='datepicker form-control'> 
 				</div>
 			</div>
 		</div>
@@ -212,7 +211,7 @@
 			</div>
 		</div>
 
-		<div class="row  pd-20">
+		<div class="row pd-20">
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="">Reparación por:</label>
@@ -222,10 +221,9 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-md-6" style="text-align:right">
-			<br>
+			<div class="col-md-6">
 				<label for="fechaprometido">Prometido : </label> 
-				<input id="fechaprometido" class='datepicker'> 
+				<input id="fechaprometido" class='datepicker form-control'> 
 			</div>
 		</div>
 		<div class="row  pd-20 text-center">

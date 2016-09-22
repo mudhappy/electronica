@@ -115,4 +115,61 @@ if(isset($_GET["agregarEquipo"]))
 }
 
 
+if(isset($_GET["actualizarEquipo"]))
+{
+	$id = $data->id;
+	$nombre = $data->nombre;
+	$celular = $data->celular;
+	$telefono = $data->telefono;
+	$domicilio = $data->domicilio;
+	$fechaprometido = $data->fechaprometido;
+	$fechaaviso = $data->fechaaviso;
+	$familia = $data->familia;
+	$tipoequipo = $data->tipoequipo;
+	$marca = $data->marca;
+	$modelo = $data->modelo;
+	$serie = $data->serie;
+	$tecnico = $data->tecnico;
+	$ubicacion = $data->ubicacion;
+	$informecliente = $data->informecliente;
+	$informetecnico = $data->informetecnico;
+	$avisado = $data->avisado;
+	$estado = $data->estado;
+	$presupuestoaceptado = $data->presupuestoaceptado;
+
+	$pilas = $data->pilas;
+	$cable = $data->cable;
+	$transformador = $data->transformador;
+	$antena = $data->antena;
+	$control = $data->control;
+
+
+	$con->query("UPDATE reparaciones 
+		SET 
+		nombre = '".$nombre."',
+		celular = '".$celular."',
+		telefono = '".$telefono."',
+		domicilio = '".$domicilio."',
+		fechaprometido = '".$fechaprometido."',
+		fechaaviso = '".$fechaaviso."',
+		familia = '".$familia."',
+		tipoequipo = '".$tipoequipo."',
+		marca = '".$marca."',
+		modelo = '".$modelo."',
+		serie = '".$serie."',
+		tecnico = '".$tecnico."',
+		ubicacion = '".$ubicacion."',
+		informecliente = '".$informecliente."',
+		informetecnico = '".$informetecnico."',
+		avisado = '".$avisado."',
+		presupuestoaceptado = '".$presupuestoaceptado."',
+		estado = '".$estado."',
+		pilas = '".$pilas."',
+		cable = '".$cable."',
+		transformador = '".$transformador."',
+		antena = '".$antena."',
+		control = '".$control."'
+		WHERE orden = '".$id."' ");
+}
+
 ?>

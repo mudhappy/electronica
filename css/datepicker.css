@@ -54,4 +54,7 @@
 .datepickershow {
   margin-top: -2px;
   margin-left: -24px;
+  position: absolute;
+  right: 26px;
+  top: 34px;
 }

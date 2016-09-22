@@ -124,3 +124,8 @@ html,body
 {
   display: none;
 }
+
+.relative
+{
+  position: relative !important;
+}

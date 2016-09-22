@@ -31,7 +31,7 @@
 			</tr>
 			<tr ng-repeat="dato in datosEntregados  | filter:{orden: orden} ">
 				<td class="col-actions">
-					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-view"></i></button>
+					<a href="#/ver/{{dato.orden}}" class="btn btn-edit btn-info"><i class="glyphicon glyphicon-search"></i></a>
 					<button ng-click="eliminarEquipo(dato.orden)" class="btn btn-edit btn-default"><i class="glyphicon glyphicon-remove"></i></button>
 				</td>
 				<td>{{dato.orden}}</td>

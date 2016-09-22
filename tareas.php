@@ -24,7 +24,7 @@
 			</tr>
 			<tr ng-repeat="dato in datosTareas | filter:{orden: orden} ">
 				<td class="col-actions">
-					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>
+					<a href="#/edit/{{dato.orden}}" class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></a>
 					<a href="#/ver/{{dato.orden}}" class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></a>
 				</td>
 				<td>{{dato.orden}}</td>

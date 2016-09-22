@@ -552,11 +552,12 @@ miApp.controller("adminController",function($scope,$http)
 		var fechaprometido = document.getElementById("fechaprometido").value;
 		var cfechaprometido = fechaprometido.split("-");
 		fechaprometido = new Date(cfechaprometido[2],toMes(cfechaprometido[1]),cfechaprometido[0]);
+		console.log(fechaprometido);
 
 		var fechaingreso = document.getElementById("fechaingreso").value;
 		var cfechaingreso = fechaingreso.split("-");
 		fechaingreso = new Date(cfechaingreso[2],toMes(cfechaingreso[1]),cfechaingreso[0]);
-
+		console.log(fechaingreso);
 
 
 		var familia = document.getElementById("familia").value;
@@ -690,6 +691,10 @@ miApp.config(function($routeProvider)
 	{
 		templateUrl: "./ver.php",
 		controller: "equipoContenido"
+	}).when("/edit/:idReparacion",
+	{
+		templateUrl: "./edit.php",
+		controller: "equipoContenido"
 	}).otherwise(
 	{
 		redirectTo: "/tareas"
@@ -699,7 +704,6 @@ miApp.config(function($routeProvider)
 miApp.controller('equipoContenido', function($scope, $routeParams,$http) 
 {
 	$scope.paramEquipo = parseInt($routeParams.idReparacion);
-
 	$scope.listarEquipo = function(idEquipo)
 	{
 		$http.get("./php/list.php?equipo="+idEquipo)
@@ -727,30 +731,43 @@ miApp.controller('equipoContenido', function($scope, $routeParams,$http)
 			}
 			
 
-				$scope.avisado = noToBool(data[0].avisado);
+			$scope.avisado = noToBool(data[0].avisado);
+			$scope.avisadoid = data[0].avisado;
 
 
 			$scope.familia = data[0].familia;
+			$scope.familiaid = data[0].familiaid;
+			console.log("---------------------------------------");
+			console.log($scope.familiaid + "-" + $scope.familia);
+			console.log("---------------------------------------");
+
 			$scope.tipoequipo = data[0].tipoequipo;
+			$scope.tipoequipoid = data[0].tipoequipoid;
+
 			$scope.marca = data[0].marca;
+			$scope.marcaid= data[0].marcaid;
+
 			$scope.modelo = data[0].modelo;
 			$scope.serie = data[0].serie;
 
 			$scope.tecnico = data[0].tecnico;
+			$scope.tecnicoid = data[0].tecnicoid;
 
 			$scope.observaciones = data[0].observaciones;
 			$scope.falla = data[0].falla;
 			$scope.ubicacion = data[0].ubicacion;
 
 
-			$scope.pilas = noToBool(data[0].pilas);
-			$scope.cable = noToBool(data[0].cable);
-			$scope.transformador = noToBool(data[0].transformador);
-			$scope.antena = noToBool(data[0].antena);
-			$scope.control = noToBool(data[0].control);
+			$scope.pilas = data[0].pilas;
+			$scope.cable = data[0].cable;
+			$scope.transformador = data[0].transformador;
+			$scope.antena = data[0].antena;
+			$scope.control = data[0].control;
 
 
 			$scope.estado = data[0].estado;
+			$scope.estadoid = data[0].estadoid;
+
 			$scope.entregado = noToBool(data[0].entregado);
 
 			$scope.presupuestado = isNull(data[0].presupuesto);
@@ -768,7 +785,7 @@ miApp.controller('equipoContenido', function($scope, $routeParams,$http)
 
 			$scope.informecliente = data[0].informecliente;
 			$scope.informetecnico = data[0].informetecnico;
-
+			$scope.listarFamiliaTipoEquipo($scope.familiaid);
 
 			console.log(data);
 		})
@@ -777,6 +794,105 @@ miApp.controller('equipoContenido', function($scope, $routeParams,$http)
 		});
 	}
 
+
+
+	$scope.actualizarEquipo = function(paramEquipo)
+	{
+		$scope.messageInsert = "...";
+
+		var id = paramEquipo;
+
+		var nombre = $scope.nombre;
+		var celular = $scope.celular;
+		var telefono = $scope.telefono;
+		var domicilio = $scope.domicilio;
+
+		var estado = document.getElementById("estado").value;
+
+		var fechaprometido = document.getElementById("fechaprometido").value;
+		var cfechaprometido = fechaprometido.split("-");
+		fechaprometido = new Date(cfechaprometido[2],toMes(cfechaprometido[1]),cfechaprometido[0]);
+
+		var fechaaviso = document.getElementById("fechaaviso").value;
+		var cfechaaviso = fechaaviso.split("-");
+		fechaaviso = new Date(cfechaaviso[2],toMes(cfechaaviso[1]),cfechaaviso[0]);
+
+
+		var familia = document.getElementById("familia").value;
+		var tipoequipo = document.getElementById("tipoequipo").value;
+		var marca = document.getElementById("marca").value;
+		var modelo = document.getElementById("modelo").value;
+		var serie = document.getElementById("serie").value;
+
+		
+		var pilas = toBool(document.getElementById("pilas").checked);
+		var cable = toBool(document.getElementById("cable").checked);
+		var transformador = toBool(document.getElementById("transformador").checked);
+		var antena = toBool(document.getElementById("antena").checked);
+		var control = toBool(document.getElementById("control").checked);
+
+		var tecnico = document.getElementById("tecnico").value;
+		var ubicacion = document.getElementById("ubicacion").value;
+
+
+		var presupuestoaceptado = document.getElementById("presupuestoaceptado").value;
+
+		var informecliente = document.getElementById("informecliente").value;
+		var informetecnico = document.getElementById("informetecnico").value;
+
+		var avisado = document.getElementById("avisado").value;
+
+		console.log("ID::::::::"+id);
+		console.log(nombre+"-"+celular+"-"+telefono+"-"+domicilio);
+		console.log(fechaprometido+"-"+fechaaviso);
+		console.log(familia+"-"+tipoequipo+"-"+marca+"-"+modelo+"-"+serie);
+		console.log(tecnico+"-"+ubicacion);
+		console.log(informecliente+"-"+informetecnico);
+		console.log("-"+avisado);
+		
+
+	$http.post("./php/acciones.php?actualizarEquipo",{
+					"id": id,
+					"nombre": nombre,
+					"celular": celular,
+					"telefono": telefono,
+					"domicilio": domicilio,
+					"fechaprometido": fechaprometido,
+					"fechaaviso": fechaaviso,
+					"familia": familia,
+					"tipoequipo": tipoequipo,
+					"marca": marca,
+					"modelo": modelo,
+					"serie": serie,
+					"tecnico": tecnico,
+					"ubicacion": ubicacion,
+					"informecliente": informecliente,
+					"informetecnico": informetecnico,
+					"avisado": avisado,
+					"estado": estado,
+					"presupuestoaceptado": presupuestoaceptado,
+					"pilas": pilas,
+					"cable": cable,
+					"transformador": transformador,
+					"antena": antena,
+					"control": control
+				})
+				.success(function()
+				{
+					location.href = "#/tareas";
+					console.log("EXITO");
+			})
+				.error(function(data, status, headers, config){
+					console.log("Error " + data);
+				});
+			}
+
+});
+
+
+miApp.controller('editarEquipo', function($scope, $routeParams,$http) 
+{
+	$scope.paramEquipo = parseInt($routeParams.idReparacion);
 });
 
 function toMes(mes)
@@ -784,40 +900,40 @@ function toMes(mes)
 	switch(mes)
 	{
 		case "Ene":
-		mes = "01";
+		mes = "0";
 		break; 
 		case "Feb":
-		mes = "02";
+		mes = "01";
 		break; 
 		case "Mar":
-		mes = "03";
+		mes = "02";
 		break; 
 		case "Abr":
-		mes = "04";
+		mes = "03";
 		break; 
 		case "May":
-		mes = "05";
+		mes = "04";
 		break; 
 		case "Jun":
-		mes = "06";
+		mes = "05";
 		break; 
 		case "Jul":
-		mes = "07";
+		mes = "06";
 		break; 
 		case "Ago":
-		mes = "08";
+		mes = "07";
 		break; 
 		case "Sep":
-		mes = "09";
+		mes = "08";
 		break; 
 		case "Oct":
-		mes = "10";
+		mes = "09";
 		break; 
 		case "Nov":
-		mes = "11";
+		mes = "10";
 		break; 
 		case "Dic":
-		mes = "12";
+		mes = "11";
 		break; 
 	}
 	return mes;

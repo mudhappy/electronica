@@ -1,8 +1,8 @@
 <div ng-init="listarEquipo(paramEquipo)" class="row hidden-to-print">
-	<div class="col-md-10 center-block no-float">
+	<div class="col-md-11 center-block no-float">
 		<!-- Cliente -->
 		<div class="row">
-			<h2 style="margin: 0;line-height:41px">Reparación</h2>
+			<h2 style="margin: 0;margin-top:20px;line-height:41px">Reparación</h2>
 			<div>
 				<h4 style="display:inline-block;margin-right:100px">Orden : <span id="orden">{{ paramEquipo }}</span></h4>
 				<h4 style="display:inline-block;margin-right:100px">Estado : <span id="orden">{{ estado }}</span></h4>
@@ -33,28 +33,28 @@
 							<input id="fechaingreso" ng-model="fechaingreso" class='datepicker'> 
 						</div> -->
 						<div class="form-group">
-							<label for="fechaprometido">Reparación prometida para : </label> 
-							<input ng-model="fechaprometido" id="fechaprometido"> 
+							<label for="fechaprometido"><h3>Reparación prometida para : </h3></label> 
+							<input class="form-control" ng-model="fechaprometido" id="fechaprometido"> 
 						</div>
 						<div class="form-group">
 							<label for="">Presupuestado:  </label> 
-							<input ng-model="presupuestado" id="fechaprometido"> 
+							<input class="form-control" ng-model="presupuestado" id="fechaprometido"> 
 						</div>
 						<div class="form-group">
 							<label for="">Presupuesto aceptado:  </label> 
-							<input value="{{presupuestoaceptado  | nombrePresupuesto}}"> 
+							<input class="form-control" value="{{presupuestoaceptado  | nombrePresupuesto}}"> 
 						</div>
 						<div class="form-group">
 							<label for="">Costo: </label> 
-							<input value="{{simbolo}} {{presupuesto}}"> 
+							<input class="form-control" value="{{simbolo}} {{presupuesto}}"> 
 						</div>
 						<div class="form-group">
 							<label for="">Avisado: </label> 
-							<input value="{{avisado}}"> 
+							<input class="form-control" value="{{avisado}}"> 
 						</div>
 						<div class="form-group">
 							<label for="">Fecha de aviso: </label> 
-							<input value="{{fechaaviso}}"> 
+							<input class="form-control" value="{{fechaaviso}}"> 
 						</div>
 					</div>
 				</div>
@@ -122,7 +122,7 @@
 		<div class="row" style="margin-top:20px;border-bottom:1px solid rgba(0,0,0,0.3)">
 			<div class="col-md-12">
 				<div class="form-group">
-					<label for="">Falla del equipo</label>
+					<label for=""><h3>Falla del equipo</h3></label>
 					<textarea ng-model="falla" id="falla" class="pd-20 form-control" rows="2" placeholder="No descrito aun ..."></textarea>
 				</div>
 				<div class="form-group">
