@@ -95,6 +95,16 @@ miApp.controller("adminController",function($scope,$http)
 		});
 	}
 
+	$scope.listarTodoTecnicos= function()
+	{
+		$http.get("./php/list.php?todoTecnico")
+		.success(function(data)
+		{
+			$scope.datosTodoTecnico = data;
+			console.log(data);
+		});
+	}
+
 	$scope.listarEstados = function()
 	{
 		$http.get("./php/list.php?estados")
@@ -272,6 +282,32 @@ miApp.controller("adminController",function($scope,$http)
 	}
 
 
+	$scope.tecnicoInactivo = function(id)
+	{
+		$http.post("./php/acciones.php?tecnicoInactivo",{"id":id})
+		.success(function()
+		{
+			$scope.listarTodoTecnicos();
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+
+	$scope.tecnicoActivo = function(id)
+	{
+		$http.post("./php/acciones.php?tecnicoActivo",{"id":id})
+		.success(function()
+		{
+			$scope.listarTodoTecnicos();
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+
 
 	$scope.limpiarIngresar = function()
 	{
@@ -370,40 +406,40 @@ miApp.controller("adminController",function($scope,$http)
 		{
 			$scope.messageOther = "Agregando ...";
 
-				$http.post("./php/acciones.php?agregarEquipo",{
-					"nombre": nombre,
-					"celular": celular,
-					"telefono": telefono,
-					"domicilio": domicilio,
-					"fechaingreso": fechaingreso,
-					"fechaprometido": fechaprometido,
-					"familia": familia,
-					"tipoequipo": tipoequipo,
-					"marca": marca,
-					"modelo": modelo,
-					"serie": serie,
-					"pilas": pilas,
-					"cable": cable,
-					"transformador": transformador,
-					"antena": antena,
-					"control": control,
-					"tecnico": tecnico,
-					"observaciones": observaciones,
-					"falla": falla,
-					"ubicacion": ubicacion
-				})
-				.success(function()
-				{
-					$scope.messageInsert = "";
-					$scope.messageOther = "";
-					location.href="javascript:location.reload()";
+			$http.post("./php/acciones.php?agregarEquipo",{
+				"nombre": nombre,
+				"celular": celular,
+				"telefono": telefono,
+				"domicilio": domicilio,
+				"fechaingreso": fechaingreso,
+				"fechaprometido": fechaprometido,
+				"familia": familia,
+				"tipoequipo": tipoequipo,
+				"marca": marca,
+				"modelo": modelo,
+				"serie": serie,
+				"pilas": pilas,
+				"cable": cable,
+				"transformador": transformador,
+				"antena": antena,
+				"control": control,
+				"tecnico": tecnico,
+				"observaciones": observaciones,
+				"falla": falla,
+				"ubicacion": ubicacion
+			})
+			.success(function()
+			{
+				$scope.messageInsert = "";
+				$scope.messageOther = "";
+				location.href="javascript:location.reload()";
 
 				//$scope.listarMarca();
 			})
-				.error(function(data, status, headers, config){
-					console.log("Error " + data);
-				});
-			}
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
+		}
 
 
 	}
@@ -473,72 +509,102 @@ miApp.controller("adminController",function($scope,$http)
 		{
 			$scope.messageImprimir = "Agregando ...";
 
-				$http.post("./php/acciones.php?agregarEquipo",{
-					"nombre": nombre,
-					"celular": celular,
-					"telefono": telefono,
-					"domicilio": domicilio,
-					"fechaingreso": fechaingreso,
-					"fechaprometido": fechaprometido,
-					"familia": familia,
-					"tipoequipo": tipoequipo,
-					"marca": marca,
-					"modelo": modelo,
-					"serie": serie,
-					"pilas": pilas,
-					"cable": cable,
-					"transformador": transformador,
-					"antena": antena,
-					"control": control,
-					"tecnico": tecnico,
-					"observaciones": observaciones,
-					"falla": falla,
-					"ubicacion": ubicacion
-				})
-				.success(function()
-				{
-					$scope.messageInsert = "";
-					$scope.messageOther = "";
+			$http.post("./php/acciones.php?agregarEquipo",{
+				"nombre": nombre,
+				"celular": celular,
+				"telefono": telefono,
+				"domicilio": domicilio,
+				"fechaingreso": fechaingreso,
+				"fechaprometido": fechaprometido,
+				"familia": familia,
+				"tipoequipo": tipoequipo,
+				"marca": marca,
+				"modelo": modelo,
+				"serie": serie,
+				"pilas": pilas,
+				"cable": cable,
+				"transformador": transformador,
+				"antena": antena,
+				"control": control,
+				"tecnico": tecnico,
+				"observaciones": observaciones,
+				"falla": falla,
+				"ubicacion": ubicacion
+			})
+			.success(function()
+			{
+				$scope.messageInsert = "";
+				$scope.messageOther = "";
 
-					document.getElementById("print_nombre").innerHTML = document.getElementById("nombre").value;
-					document.getElementById("print_celular").innerHTML = document.getElementById("celular").value;
-					document.getElementById("print_telefono").innerHTML = document.getElementById("telefono").value;
-					document.getElementById("print_domicilio").innerHTML = document.getElementById("domicilio").value;
+				document.getElementById("print_nombre").innerHTML = document.getElementById("nombre").value;
+				document.getElementById("print_celular").innerHTML = document.getElementById("celular").value;
+				document.getElementById("print_telefono").innerHTML = document.getElementById("telefono").value;
+				document.getElementById("print_domicilio").innerHTML = document.getElementById("domicilio").value;
 
-					document.getElementById("print_familia").innerHTML = document.getElementById("familia").options[document.getElementById('familia').selectedIndex].text;
-					document.getElementById("print_tipoequipo").innerHTML = document.getElementById("tipoequipo").options[document.getElementById('tipoequipo').selectedIndex].text;
-					document.getElementById("print_marca").innerHTML = document.getElementById("marca").options[document.getElementById('marca').selectedIndex].text;
-					document.getElementById("print_modelo").innerHTML = document.getElementById("modelo").value;
-					document.getElementById("print_serie").innerHTML = document.getElementById("serie").value;
+				document.getElementById("print_familia").innerHTML = document.getElementById("familia").options[document.getElementById('familia').selectedIndex].text;
+				document.getElementById("print_tipoequipo").innerHTML = document.getElementById("tipoequipo").options[document.getElementById('tipoequipo').selectedIndex].text;
+				document.getElementById("print_marca").innerHTML = document.getElementById("marca").options[document.getElementById('marca').selectedIndex].text;
+				document.getElementById("print_modelo").innerHTML = document.getElementById("modelo").value;
+				document.getElementById("print_serie").innerHTML = document.getElementById("serie").value;
 
-					document.getElementById("print_pila").innerHTML =  noToBool(toBool(document.getElementById("pilas").checked));
-					document.getElementById("print_cable").innerHTML = noToBool(toBool(document.getElementById("cable").checked));
-					document.getElementById("print_transformador").innerHTML = noToBool(toBool(document.getElementById("transformador").checked));
-					document.getElementById("print_antena").innerHTML = noToBool(toBool(document.getElementById("antena").checked));
-					document.getElementById("print_control").innerHTML = noToBool(toBool(document.getElementById("control").checked));
+				document.getElementById("print_pila").innerHTML =  noToBool(toBool(document.getElementById("pilas").checked));
+				document.getElementById("print_cable").innerHTML = noToBool(toBool(document.getElementById("cable").checked));
+				document.getElementById("print_transformador").innerHTML = noToBool(toBool(document.getElementById("transformador").checked));
+				document.getElementById("print_antena").innerHTML = noToBool(toBool(document.getElementById("antena").checked));
+				document.getElementById("print_control").innerHTML = noToBool(toBool(document.getElementById("control").checked));
 
-					document.getElementById("print_observaciones").innerHTML = document.getElementById("observaciones").value;
-					document.getElementById("print_falla").innerHTML = document.getElementById("falla").value;
+				document.getElementById("print_observaciones").innerHTML = document.getElementById("observaciones").value;
+				document.getElementById("print_falla").innerHTML = document.getElementById("falla").value;
 
-					document.getElementById("print_ingreso").innerHTML = document.getElementById("fechaingreso").value;
-					document.getElementById("print_prometido").innerHTML = document.getElementById("fechaprometido").value;
-					document.getElementById("print_tecnico").innerHTML = document.getElementById("tecnico").options[document.getElementById('tecnico').selectedIndex].text;
-					document.getElementById("print_ubicacion").innerHTML = document.getElementById("ubicacion").value;
+				document.getElementById("print_ingreso").innerHTML = document.getElementById("fechaingreso").value;
+				document.getElementById("print_prometido").innerHTML = document.getElementById("fechaprometido").value;
+				document.getElementById("print_tecnico").innerHTML = document.getElementById("tecnico").options[document.getElementById('tecnico').selectedIndex].text;
+				document.getElementById("print_ubicacion").innerHTML = document.getElementById("ubicacion").value;
 
-					document.getElementById("print_orden").innerHTML = document.getElementById("orden").innerHTML;
+				document.getElementById("print_orden").innerHTML = document.getElementById("orden").innerHTML;
 
 
-					$scope.messageImprimir = "Listo para imprimir";
-					window.print();
+				$scope.messageImprimir = "Listo para imprimir";
+				window.print();
 
 				//$scope.listarMarca();
 			})
-				.error(function(data, status, headers, config){
-					console.log("Error " + data);
-				});
-			}
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
+		}
 		// 
 
+	}
+
+	$scope.nuevoTecnico = function()
+	{
+		
+
+		var usuario = document.getElementById("usuario").value;
+		var celular = document.getElementById("celular").value;
+		var clave = document.getElementById("clave").value;
+
+		if(usuario === "" || celular === "" || clave === "" )
+		{
+			$scope.messageTecnico = "*Completa todos los campos";
+		}else
+		{
+			$scope.messageTecnico = "...";
+			$http.post("./php/acciones.php?agregarTecnico",{
+				"usuario": usuario,
+				"celular": celular,
+				"clave": clave
+			})
+			.success(function()
+			{
+				$scope.listarTodoTecnicos();
+				$scope.messageTecnico = "Agregado";
+			})
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
+		}
 	}
 
 	$scope.nuevoEquipo = function()
@@ -565,7 +631,7 @@ miApp.controller("adminController",function($scope,$http)
 		var marca = document.getElementById("marca").value;
 		var modelo = document.getElementById("modelo").value;
 		var serie = document.getElementById("serie").value;
-		
+
 
 		var pilas = toBool(document.getElementById("pilas").checked);
 		var cable = toBool(document.getElementById("cable").checked);
@@ -580,7 +646,7 @@ miApp.controller("adminController",function($scope,$http)
 
 		var ubicacion = document.getElementById("ubicacion").value;
 
-		
+
 
 		if(nombre === "" || celular === "" || telefono === "" || domicilio === "" )
 		{
@@ -604,46 +670,46 @@ miApp.controller("adminController",function($scope,$http)
 		{
 			$scope.messageInsert = "Agregando ...";
 
-				$http.post("./php/acciones.php?agregarEquipo",{
-					"nombre": nombre,
-					"celular": celular,
-					"telefono": telefono,
-					"domicilio": domicilio,
-					"fechaingreso": fechaingreso,
-					"fechaprometido": fechaprometido,
-					"familia": familia,
-					"tipoequipo": tipoequipo,
-					"marca": marca,
-					"modelo": modelo,
-					"serie": serie,
-					"pilas": pilas,
-					"cable": cable,
-					"transformador": transformador,
-					"antena": antena,
-					"control": control,
-					"tecnico": tecnico,
-					"observaciones": observaciones,
-					"falla": falla,
-					"ubicacion": ubicacion
-				})
-				.success(function()
-				{
-					$scope.messageInsert = "";
-					$scope.messageOther = "";
-					location.href = "#/tareas";
+			$http.post("./php/acciones.php?agregarEquipo",{
+				"nombre": nombre,
+				"celular": celular,
+				"telefono": telefono,
+				"domicilio": domicilio,
+				"fechaingreso": fechaingreso,
+				"fechaprometido": fechaprometido,
+				"familia": familia,
+				"tipoequipo": tipoequipo,
+				"marca": marca,
+				"modelo": modelo,
+				"serie": serie,
+				"pilas": pilas,
+				"cable": cable,
+				"transformador": transformador,
+				"antena": antena,
+				"control": control,
+				"tecnico": tecnico,
+				"observaciones": observaciones,
+				"falla": falla,
+				"ubicacion": ubicacion
+			})
+			.success(function()
+			{
+				$scope.messageInsert = "";
+				$scope.messageOther = "";
+				location.href = "#/tareas";
 
 				//$scope.listarMarca();
 			})
-				.error(function(data, status, headers, config){
-					console.log("Error " + data);
-				});
-			}
-
-
+			.error(function(data, status, headers, config){
+				console.log("Error " + data);
+			});
 		}
 
 
-	})
+	}
+
+
+})
 
 miApp.filter("nombrePresupuesto",function()
 {
@@ -663,6 +729,21 @@ miApp.filter("nombrePresupuesto",function()
 	return presupuestoaceptado;
 })
 
+
+miApp.filter("nombreActivo",function()
+{
+	var nombreActivo = function(data) 
+	{ 
+		if(data == 1) 
+		{ 
+			return "Activo"; 
+		}else if(data == 0) 
+		{ 
+			return "Inactivo" 
+		}
+	} 
+	return nombreActivo;
+})
 
 miApp.config(function($routeProvider)
 {
@@ -851,41 +932,41 @@ miApp.controller('equipoContenido', function($scope, $routeParams,$http)
 		console.log("-"+avisado);
 		
 
-	$http.post("./php/acciones.php?actualizarEquipo",{
-					"id": id,
-					"nombre": nombre,
-					"celular": celular,
-					"telefono": telefono,
-					"domicilio": domicilio,
-					"fechaprometido": fechaprometido,
-					"fechaaviso": fechaaviso,
-					"familia": familia,
-					"tipoequipo": tipoequipo,
-					"marca": marca,
-					"modelo": modelo,
-					"serie": serie,
-					"tecnico": tecnico,
-					"ubicacion": ubicacion,
-					"informecliente": informecliente,
-					"informetecnico": informetecnico,
-					"avisado": avisado,
-					"estado": estado,
-					"presupuestoaceptado": presupuestoaceptado,
-					"pilas": pilas,
-					"cable": cable,
-					"transformador": transformador,
-					"antena": antena,
-					"control": control
-				})
-				.success(function()
-				{
-					location.href = "#/tareas";
-					console.log("EXITO");
-			})
-				.error(function(data, status, headers, config){
-					console.log("Error " + data);
-				});
-			}
+		$http.post("./php/acciones.php?actualizarEquipo",{
+			"id": id,
+			"nombre": nombre,
+			"celular": celular,
+			"telefono": telefono,
+			"domicilio": domicilio,
+			"fechaprometido": fechaprometido,
+			"fechaaviso": fechaaviso,
+			"familia": familia,
+			"tipoequipo": tipoequipo,
+			"marca": marca,
+			"modelo": modelo,
+			"serie": serie,
+			"tecnico": tecnico,
+			"ubicacion": ubicacion,
+			"informecliente": informecliente,
+			"informetecnico": informetecnico,
+			"avisado": avisado,
+			"estado": estado,
+			"presupuestoaceptado": presupuestoaceptado,
+			"pilas": pilas,
+			"cable": cable,
+			"transformador": transformador,
+			"antena": antena,
+			"control": control
+		})
+		.success(function()
+		{
+			location.href = "#/tareas";
+			console.log("EXITO");
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
 
 });
 
@@ -1058,15 +1139,15 @@ function isNull(v)
 
 function toggle_visibility(id) 
 {
-    var e = document.getElementById(id);
-    if (e.style.display == 'block' || e.style.display=='')
-    {
-        e.style.display = 'none';
-    }
-    else 
-    {
-        e.style.display = 'block';
-    }
+	var e = document.getElementById(id);
+	if (e.style.display == 'block' || e.style.display=='')
+	{
+		e.style.display = 'none';
+	}
+	else 
+	{
+		e.style.display = 'block';
+	}
 }
 
 Date.prototype.isValid = function () {

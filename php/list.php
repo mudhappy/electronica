@@ -15,6 +15,11 @@ if(isset($_GET["tecnico"]))
 	$result = $con->query("SELECT * FROM tecnico WHERE activo = 0") or trigger_error(mysql_error()); 
 }
 
+if(isset($_GET["todoTecnico"]))
+{
+	$result = $con->query("SELECT * FROM tecnico ORDER BY id DESC") or trigger_error(mysql_error()); 
+}
+
 if(isset($_GET["estados"]))
 {
 	$result = $con->query("SELECT * FROM estados") or trigger_error(mysql_error()); 

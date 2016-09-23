@@ -18,6 +18,19 @@ if(isset($_GET["terminado"]))
 	$con->query("UPDATE reparaciones SET entregado = '".$valor."' WHERE orden = '".$orden."' ");
 }
 
+if(isset($_GET["tecnicoInactivo"]))
+{
+	$id = $data->id;
+	$con->query("UPDATE tecnico SET activo = '0' WHERE id = '".$id."' ");
+}
+
+if(isset($_GET["tecnicoActivo"]))
+{
+	$id = $data->id;
+	$con->query("UPDATE tecnico SET activo = '1' WHERE id = '".$id."' ");
+}
+
+
 if(isset($_GET["eliminarEquipo"]))
 {
 	$orden = $data->orden;
@@ -46,6 +59,15 @@ if(isset($_GET["agregarMarca"]))
 {
 	$texto = $data->texto;
 	$con->query("INSERT INTO marca (nombre) VALUES ('".$texto."') ");
+}
+
+if(isset($_GET["agregarTecnico"]))
+{
+	$usuario = $data->usuario;
+	$clave = $data->clave;
+	$celular = $data->celular;
+	$activo = 1;
+	$con->query("INSERT INTO tecnico (usuario,clave,celular,activo) VALUES ('".$usuario."','".$clave."','".$celular."','".$activo."') ");
 }
 
 
