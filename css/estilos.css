@@ -27,7 +27,6 @@
     display: none !important;
   }
 }
-
 html,body
 {
 	overflow-x: hidden;
@@ -128,4 +127,9 @@ html,body
 .relative
 {
   position: relative !important;
+}
+
+.margin50
+{
+  padding-top: 18px;
 }

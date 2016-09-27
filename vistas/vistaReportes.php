@@ -1,13 +1,13 @@
 <div class="row pd-20">
 	<div class="col-md-2">
 		<div class="form-group">
-			<label for="">Cliente {{id_coso}}</label>
+			<label for="">Cliente</label>
+			<input type="text" placeholder="Nombre" class="form-control" ng-model="buscador.nombre">
+		</div>
+		<div class="form-group">
 			<div class="row">
-				<div class="col-md-6">
-					<input type="text" placeholder="Nombre" class="form-control" ng-model="nombre">
-				</div>
-				<div class="col-md-6">
-					<input type="text" placeholder="Apellido" class="form-control" ng-model="apellido">
+				<div class="col-md-12">
+					<input type="text" placeholder="Apellido" class="form-control" ng-model="buscador.apellido">
 				</div>
 			</div>
 		</div>
@@ -15,16 +15,16 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-12">
-					<input type="text" placeholder="Telefono" class="form-control" ng-model="telefono">
+					<input type="text" placeholder="Telefono" class="form-control" ng-model="buscador.telefono">
 				</div>
 			</div>
 		</div>
 
 		<div class="form-group">
-		<label for="">Estado</label>
+			<label for="">Estado</label>
 			<div class="row">
 				<div class="col-md-12">
-					<select ng-model="estado" ng-init="listarEstados()">
+					<select ng-model="buscador.estado" ng-init="listarEstados()">
 						<option value="">
 							Cualquiera
 						</option>
@@ -37,10 +37,10 @@
 		</div>
 
 		<div class="form-group">
-		<label for="">Técnico</label>
+			<label for="">Técnico</label>
 			<div class="row">
 				<div class="col-md-12">
-					<select ng-model="tecnico" ng-init="listarTecnicos()">
+					<select ng-model="buscador.tecnico" ng-init="listarTecnicos()">
 						<option value="">
 							Cualquiera
 						</option>
@@ -53,20 +53,20 @@
 		</div>
 
 		<div class="form-group">
-		<label for="">Serie</label>
+			<label for="">Serie</label>
 			<div class="row">
 				<div class="col-md-12">
-					<input type="text" placeholder="Serie" ng-model="serie">
+					<input type="text" placeholder="Serie" ng-model="buscador.serie">
 				</div>
 			</div>
 		</div>
 
 		
 		<div class="form-group">
-		<label for="">Aceptado</label>
+			<label for="">Aceptado</label>
 			<div class="row">
 				<div class="col-md-12">
-					<select ng-model="presupuestoaceptado">
+					<select ng-model="buscador.presupuestoaceptado">
 						<option value="">
 							Cualquiera
 						</option>
@@ -86,10 +86,10 @@
 
 		
 		<div class="form-group">
-		<label for="">Orden</label>
+			<label for="">Orden</label>
 			<div class="row">
 				<div class="col-md-12">
-					<input type="text" ng-model="orden" placeholder="Nro de orden">
+					<input type="text" ng-model="buscador.orden" placeholder="Nro de orden">
 				</div>
 			</div>
 		</div>
@@ -104,7 +104,7 @@
 		<table id="section-to-print" class="table table-striped table-responsive no-float" ng-init="listarTodo()">
 			<tr>
 				<!--<th>Acción</th>-->
-				<th>Orden</th> 
+				<th>Nro</th> 
 				<th>Tipo</th>
 				<th>Marca</th>
 				<th>Falla</th>
@@ -115,32 +115,31 @@
 				<th>Presupuesto</th>
 			</tr>
 			<tr ng-repeat="dato in datosTodo | filter:{ 
-				nombre: nombre, 
-				apellido: apellido, 
-				telefono: telefono,
-				id_estado: estado,
-				tecnico: tecnico,
-				serie: serie,
-				presupuestoaceptado: presupuestoaceptado,
-				orden: orden
-				}">
+			nombre: buscador.nombre, 
+			apellido: buscador.apellido, 
+			telefono: buscador.telefono,
+			id_estado: buscador.estado,
+			tecnico: buscador.tecnico,
+			serie: buscador.serie,
+			presupuestoaceptado: buscador.presupuestoaceptado,
+			orden: buscador.orden
+		}">
 				<!--
 				<td>
 					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>
 					<button class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></button>
 				</td>
-				-->
-				<td>{{dato.orden}}</td>
-				<td>{{dato.tipoequipo}}</td>
-				<td>{{dato.marca}}</td>
-				<td>{{dato.falla}}</td>
-				<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
-				<td>{{dato.estado}}</td>
-				<td>{{dato.fechaingreso}}</td>
-				<td>{{dato.fechaprometido}}</td>
-				<td ng-show="dato.presupuesto != null">{{dato.simbolo}} {{dato.presupuesto}}</td>
-				<td ng-hide="dato.presupuesto != null">---</td>
-			</tr>
-		</table>
-	</div>
+			-->
+			<td>{{dato.orden}}</td>
+			<td>{{dato.tipoequipo}}</td>
+			<td>{{dato.marca}}</td>
+			<td>{{dato.falla}}</td>
+			<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
+			<td>{{dato.estado}}</td>
+			<td>{{dato.fechaingreso}}</td>
+			<td>{{dato.fechaprometido}}</td>
+			<td><span ng-show="dato.presupuesto != null">{{dato.simbolo}} {{dato.presupuesto}}</span></td>
+		</tr>
+	</table>
+</div>
 </div>

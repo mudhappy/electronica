@@ -3,7 +3,7 @@
 		<ul class="nav nav-tabs">
 		  <li role="presentation" class="active"><a href="#">Bienvenido <?php echo $_SESSION["usuario"]?></a></li>
 		  <li class="float-right">
-				<a class="pointer" ng-click="logout()">Cerrar sesión</a>
+				<a class="pointer" ng-click="cerrarSesion()">Cerrar sesión</a>
 			</li>
 			<?php 
 			if($_SESSION["id"] == 1)
@@ -38,5 +38,3 @@
 </header>
 
 <div ng-view></div>
-
-<script src="./js/angular.js"></script>

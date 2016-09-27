@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-11 center-block no-float">
-		<h3>Mis tareas <button class="btn btn-primary" ng-click="listarTareas()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
+		<h3>Equipos terminados <button  class="btn btn-primary" ng-click="listarTerminados()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-12">
@@ -8,8 +8,7 @@
 				</div>
 			</div>
 		</div>
-
-		<table class="table table-striped table-responsive no-float" ng-init="listarTareas()">
+		<table class="table table-striped table-responsive no-float" ng-init="listarTerminados()">
 			<tr>
 				<th>Acción</th>
 				<th>Orden</th> 
@@ -18,14 +17,14 @@
 				<th>Falla</th>
 				<th>Aceptado</th>
 				<th>Estado</th>
+				<th>Técnico</th>
 				<th>Ingresado</th>
 				<th>Prometido</th>
 				<th>Presupuesto</th>
 			</tr>
-			<tr ng-repeat="dato in datosTareas | filter:{orden: orden} ">
+			<tr ng-repeat="dato in datosTerminados | filter:{orden: orden} ">
 				<td class="col-actions">
-					<a href="#/edit/{{dato.orden}}" class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></a>
-					<a href="#/ver/{{dato.orden}}" class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></a>
+					<button ng-click="equipoTerminado(dato.orden,1)" class="btn btn-edit btn-success"><i class="glyphicon glyphicon-transfer"></i></button>
 				</td>
 				<td>{{dato.orden}}</td>
 				<td>{{dato.tipoequipo}}</td>
@@ -33,9 +32,10 @@
 				<td>{{dato.falla}}</td>
 				<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
 				<td>{{dato.estado}}</td>
+				<td>{{dato.tecnico}}</td>
 				<td>{{dato.fechaingreso}}</td>
 				<td>{{dato.fechaprometido}}</td>
-				<td>{{dato.simbolo}} {{dato.presupuesto}}</td>
+				<td><span ng-show="dato.presupuesto != null">{{dato.simbolo}} {{dato.presupuesto}}</span></td>
 			</tr>
 		</table>
 	</div>

@@ -8,7 +8,7 @@
 					<label for="">Exportar copia de seguridad</label>
 				</div>
 				<div class="form-group">
-					<a href="./exportar.php" class="btn btn-primary">Crear copia de seguridad</a>
+					<a href="./php/exportar.php" class="btn btn-primary">Crear copia de seguridad</a>
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -18,19 +18,19 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="">Nombre de usuario</label>
-								<input id="usuario" type="text" class="form-control">
+								<input name="usuario" ng-model="tecnico.usuario"  type="text" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="">Clave</label>
-								<input id="clave" type="password" class="form-control">
+								<input name="clave" ng-model="tecnico.clave"  type="password" class="form-control">
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="">Celular</label>
-								<input id="celular" type="text" class="form-control">
+								<input name="celular" ng-model="tecnico.celular"  type="text" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -40,26 +40,24 @@
 					</div>
 				</form>
 				<h4>Lista</h4>
-				<table ng-init="listarTodoTecnicos()" class="table table-responsive table-striped">
+				<table ng-init="listarTecnicos()" class="table table-responsive table-striped">
 					<tr>
-						<th>Acciones</th>
 						<th>Nombre</th>
 						<th>Celular</th>
-						<th>Activo</th>
+						<th>Estado</th>
+						<th>Acciones</th>
 					</tr>
-					<tr ng-repeat="dato in datosTodoTecnico">
-						<td class="col-actions">
-							<btn ng-click="tecnicoInactivo(dato.id)" class="btn btn-edit btn-default"><i class="glyphicon glyphicon-arrow-down"></i></btn>
-							<btn ng-click="tecnicoActivo(dato.id)" class="btn btn-edit btn-default"><i class="glyphicon glyphicon-arrow-up"></i></btn>
-						</td>
+					<tr ng-repeat="dato in datosTecnico">
 						<td>{{dato.usuario}}</td>
 						<td>{{dato.celular}}</td>
 						<td>{{dato.activo | nombreActivo }}</td>
+						<td><btn ng-click="tecnicoInactivo(dato.id)" class="btn btn-edit btn-default"><i class="glyphicon glyphicon-arrow-down"></i></btn>
+							<btn ng-click="tecnicoActivo(dato.id)" class="btn btn-edit btn-default"><i class="glyphicon glyphicon-arrow-up"></i></btn></td>
 					</tr>
 				</table>
 			</div>
 			<!-- <div class="col-md-6 center-block">
-				<form action="importar.php" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
+				<form action="./php/importar.php" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
 
 					<div class="form-group">
 						<label for="">Importar copia de seguridad</label>

@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-11 center-block no-float">
-		<h3>Equipos en taller <button class="btn btn-primary"  ng-click="listarTaller()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
+		<h3>Equipos en taller <button class="btn btn-primary" ng-click="listarTaller()"><i class="glyphicon glyphicon-refresh"></i></button></h3>
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-12">
@@ -36,7 +36,7 @@
 				<td>{{dato.tecnico}}</td>
 				<td>{{dato.fechaingreso}}</td>
 				<td>{{dato.fechaprometido}}</td>
-				<td>{{dato.simbolo}} {{dato.presupuesto}}</td>
+				<td><span ng-show="dato.presupuesto != null">{{dato.simbolo}} {{dato.presupuesto}}</span></td>
 			</tr>
 		</table>
 	</div>

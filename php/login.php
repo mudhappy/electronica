@@ -20,13 +20,9 @@ $acceso = false;
 while($row = $result->fetch_assoc())
 {
 	$acceso = true;
-	$_SESSION["celular"] = $row["celular"];
 	$_SESSION["usuario"] = $row["usuario"];
 	$_SESSION["id"] = $row["id"];
 }
 
-
 echo json_encode($acceso);
-
-
 ?>

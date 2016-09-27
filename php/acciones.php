@@ -11,25 +11,18 @@ mysqli_set_charset($con,'utf8');
 
 $data = json_decode(file_get_contents("php://input"));
 
+if(isset($_GET["cerrarSesion"]))
+{
+	session_start();
+	session_destroy();
+}
+
 if(isset($_GET["terminado"]))
 {
 	$orden = $data->orden;
 	$valor = $data->valor;
 	$con->query("UPDATE reparaciones SET entregado = '".$valor."' WHERE orden = '".$orden."' ");
 }
-
-if(isset($_GET["tecnicoInactivo"]))
-{
-	$id = $data->id;
-	$con->query("UPDATE tecnico SET activo = '0' WHERE id = '".$id."' ");
-}
-
-if(isset($_GET["tecnicoActivo"]))
-{
-	$id = $data->id;
-	$con->query("UPDATE tecnico SET activo = '1' WHERE id = '".$id."' ");
-}
-
 
 if(isset($_GET["eliminarEquipo"]))
 {
@@ -41,6 +34,7 @@ if(isset($_GET["eliminarEntregados"]))
 {
 	$con->query("DELETE FROM reparaciones WHERE entregado = '1' ");
 }
+
 
 if(isset($_GET["agregarFamilia"]))
 {
@@ -61,6 +55,20 @@ if(isset($_GET["agregarMarca"]))
 	$con->query("INSERT INTO marca (nombre) VALUES ('".$texto."') ");
 }
 
+
+if(isset($_GET["tecnicoInactivo"]))
+{
+	$id = $data->id;
+	$con->query("UPDATE tecnico SET activo = '0' WHERE id = '".$id."' ");
+}
+
+if(isset($_GET["tecnicoActivo"]))
+{
+	$id = $data->id;
+	$con->query("UPDATE tecnico SET activo = '1' WHERE id = '".$id."' ");
+}
+
+
 if(isset($_GET["agregarTecnico"]))
 {
 	$usuario = $data->usuario;
@@ -69,7 +77,6 @@ if(isset($_GET["agregarTecnico"]))
 	$activo = 1;
 	$con->query("INSERT INTO tecnico (usuario,clave,celular,activo) VALUES ('".$usuario."','".$clave."','".$celular."','".$activo."') ");
 }
-
 
 if(isset($_GET["agregarEquipo"]))
 {
@@ -137,6 +144,7 @@ if(isset($_GET["agregarEquipo"]))
 }
 
 
+
 if(isset($_GET["actualizarEquipo"]))
 {
 	$id = $data->id;
@@ -155,6 +163,7 @@ if(isset($_GET["actualizarEquipo"]))
 	$ubicacion = $data->ubicacion;
 	$informecliente = $data->informecliente;
 	$informetecnico = $data->informetecnico;
+
 	$avisado = $data->avisado;
 	$estado = $data->estado;
 	$presupuestoaceptado = $data->presupuestoaceptado;
@@ -164,15 +173,16 @@ if(isset($_GET["actualizarEquipo"]))
 	$transformador = $data->transformador;
 	$antena = $data->antena;
 	$control = $data->control;
-
+	$moneda = $data->moneda;
+	$presupuesto = $data->presupuesto;
 
 	$con->query("UPDATE reparaciones 
 		SET 
 		nombre = '".$nombre."',
 		celular = '".$celular."',
-		telefono = '".$telefono."',
-		domicilio = '".$domicilio."',
-		fechaprometido = '".$fechaprometido."',
+	 	telefono = '".$telefono."',
+	 	domicilio = '".$domicilio."',
+	 	fechaprometido = '".$fechaprometido."',
 		fechaaviso = '".$fechaaviso."',
 		familia = '".$familia."',
 		tipoequipo = '".$tipoequipo."',
@@ -190,8 +200,12 @@ if(isset($_GET["actualizarEquipo"]))
 		cable = '".$cable."',
 		transformador = '".$transformador."',
 		antena = '".$antena."',
-		control = '".$control."'
+		control = '".$control."',
+		nonedapresupuesto = '".$moneda."',
+		presupuesto = '".$presupuesto."'
 		WHERE orden = '".$id."' ");
 }
+
+
 
 ?>
