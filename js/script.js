@@ -791,7 +791,7 @@ electronica.controller('equipoContenido', function($scope, $routeParams,$http,$f
 		.success(function()
 		{
 			console.log("Actualizado");
-			// location.href = "#/tareas";
+			location.href = "#/tareas";
 		})
 		.error(function(data, status, headers, config){
 			console.log("Error " + data);
@@ -814,7 +814,7 @@ function noToBool(v)
 
 function isNull(v)
 {
-	if(v == null)
+	if(v == 0)
 	{
 		return "No"
 	}else

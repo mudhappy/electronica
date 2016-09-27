@@ -43,7 +43,13 @@
 				<td>{{dato.tecnico}}</td>
 				<td>{{dato.fechaingreso}}</td>
 				<td>{{dato.fechaprometido}}</td>
-				<td><span ng-show="dato.presupuesto != null">{{dato.simbolo}} {{dato.presupuesto}}</span></td>
+				<td>
+					<span ng-show="dato.presupuesto != null  ">
+						<span ng-show="dato.presupuesto != 0  ">
+							{{dato.simbolo}} {{dato.presupuesto}}
+						</span>
+					</span>
+				</td>
 			</tr>
 		</table>
 	</div>

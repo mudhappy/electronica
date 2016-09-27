@@ -103,7 +103,6 @@
 					</select>
 					<a ng-click="verNuevaFamilia()" class="pointer">Nueva familia</a>
 				</div>
-				<p>Familia {{equipo.familiaid}}</p>
 				<div class="form-group">
 					<select ng-init="listarTipoEquipo()" name="tipoequipo" class="form-control" ng-model="equipo.tipoequipoid">
 						<option ng-repeat="dato in datosTipoEquipo| filter:{ familia: equipo.familiaid }" value="{{dato.id}}">{{dato.nombre}}</option>
