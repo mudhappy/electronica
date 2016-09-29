@@ -49,6 +49,7 @@ electronica.controller("loginController",function($scope,$http)
 
 electronica.controller("appController",function($scope,$http,$filter)
 {
+
 	$scope.cerrarSesion = function()
 	{
 		$http.post("./php/acciones.php?cerrarSesion",{})
@@ -389,13 +390,20 @@ electronica.controller("appController",function($scope,$http,$filter)
 		}
 	}
 
+
+	$scope.buscador = 
+	{
+		fechaInicial: $filter('date')(new Date(), "yyyy-MM-01"),
+		fechaFinal: $filter('date')(new Date(), "yyyy-MM-dd")
+	};	
+
 	$scope.equipo = {
 		nombre: '',
 		celular: '',
 		telefono: '',
 		domicilio: '',
-		fechaingreso: $filter('date')(new Date(), "dd-MM-yyyy"),
-		fechaprometido: '',
+		fechaingreso: $filter('date')(new Date(), "yyyy-MM-dd"),
+		fechaprometido: $filter('date')(new Date(), "yyyy-MM-dd"),
 		familia: '',
 		tipoequipo: '',
 		marca: '',
@@ -410,56 +418,58 @@ electronica.controller("appController",function($scope,$http,$filter)
 		observaciones: '',
 		falla: '',
 		ubicacion: '',
+		ingresadopor: 0
 	};
-
-
 
 	$scope.nuevoEquipo = function()
 	{	
 		console.log("Nuevo equipo");
-		
-		if($scope.equipo.serie === "" || $scope.equipo.nombre === "" || $scope.equipo.celular === "" || $scope.equipo.domicilio === "" || $scope.equipo.familia === "" || $scope.equipo.tipoequipo === "" || $scope.equipo.marca === "" || $scope.equipo.tecnico === "" )
+
+		if($scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.serie != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.domicilio != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
 		{
-			alert("Te faltan completar campos obligatorios");
-		}else
-		{
+			$scope.equipo.ingresadopor = document.getElementById("ingresadopor").innerHTML;
+			console.log($scope.equipo.ingresadopor);
+
 			var cfechaingreso = $scope.equipo.fechaingreso.split("-");
-			$scope.equipo.fechaingreso = new Date(cfechaingreso[2],cfechaingreso[1]-1,cfechaingreso[0]);
+			$scope.equipo.fechaingreso = new Date(cfechaingreso[0],cfechaingreso[1]-1,cfechaingreso[2]);
 
 			var cfechaprometido = $scope.equipo.fechaprometido.split("-");
-			$scope.equipo.fechaprometido = new Date(cfechaprometido[2],cfechaprometido[1]-1,cfechaprometido[0]);
+			$scope.equipo.fechaprometido = new Date(cfechaprometido[0],cfechaprometido[1]-1,cfechaprometido[2]);
+
 
 			$http.post("./php/acciones.php?agregarEquipo",{
-				"nombre": $scope.equipo.nombre,
-				"celular": $scope.equipo.celular,
-				"telefono": $scope.equipo.telefono,
-				"domicilio": $scope.equipo.domicilio,
-				"fechaingreso": $scope.equipo.fechaingreso,
-				"fechaprometido": $scope.equipo.fechaprometido,
-				"familia": $scope.equipo.familia,
-				"tipoequipo": $scope.equipo.tipoequipo,
-				"marca": $scope.equipo.marca,
-				"modelo": $scope.equipo.modelo,
-				"serie": $scope.equipo.serie,
-				"pilas": $scope.equipo.pilas,
-				"cable": $scope.equipo.cable,
-				"transformador": $scope.equipo.transformador,
-				"antena": $scope.equipo.antena,
-				"control": $scope.equipo.control,
-				"tecnico": $scope.equipo.tecnico,
-				"observaciones": $scope.equipo.observaciones,
-				"falla": $scope.equipo.falla,
-				"ubicacion": $scope.equipo.ubicacion
+				"nombre": scopeNull($scope.equipo.nombre),
+				"celular": scopeNull($scope.equipo.celular),
+				"telefono": scopeNull($scope.equipo.telefono),
+				"domicilio": scopeNull($scope.equipo.domicilio),
+				"fechaingreso": scopeNull($scope.equipo.fechaingreso),
+				"fechaprometido": scopeNull($scope.equipo.fechaprometido),
+				"familia": scopeNull($scope.equipo.familia),
+				"tipoequipo": scopeNull($scope.equipo.tipoequipo),
+				"marca": scopeNull($scope.equipo.marca),
+				"modelo": scopeNull($scope.equipo.modelo),
+				"serie": scopeNull($scope.equipo.serie),
+				"pilas": scopeNull($scope.equipo.pilas),
+				"cable": scopeNull($scope.equipo.cable),
+				"transformador": scopeNull($scope.equipo.transformador),
+				"antena": scopeNull($scope.equipo.antena),
+				"control": scopeNull($scope.equipo.control),
+				"tecnico": scopeNull($scope.equipo.tecnico),
+				"observaciones": scopeNull($scope.equipo.observaciones),
+				"falla": scopeNull($scope.equipo.falla),
+				"ubicacion": scopeNull($scope.equipo.ubicacion),
+				"ingresadopor": scopeNull($scope.equipo.ingresadopor)
 			})
 			.success(function()
 			{
+				console.log("Agregado");
 				$scope.equipo = {
 					nombre: '',
 					celular: '',
 					telefono: '',
 					domicilio: '',
-					fechaingreso: $filter('date')(new Date(), "dd-MM-yyyy"),
-					fechaprometido: '',
+					fechaingreso: $filter('date')(new Date(), "yyyy-MM-dd"),
+					fechaprometido: $filter('date')(new Date(), "yyyy-MM-dd"),
 					familia: '',
 					tipoequipo: '',
 					marca: '',
@@ -474,61 +484,70 @@ electronica.controller("appController",function($scope,$http,$filter)
 					observaciones: '',
 					falla: '',
 					ubicacion: '',
+					ingresadopor: 0
 				};
-				console.log("Agregado");
+
 				location.href = "#/tareas";
 			})
 			.error(function(data, status, headers, config){
 				console.log("Error " + data);
 			});
+		}else
+		{
+			alert("Rellena los campos obligatorios*");
 		}
+
 	}
+
 
 	$scope.ingresarOtro = function()
 	{
 		console.log("Nuevo equipo");
-		if($scope.equipo.serie === "" || $scope.equipo.nombre === "" || $scope.equipo.celular === "" || $scope.equipo.domicilio === "" || $scope.equipo.familia === "" || $scope.equipo.tipoequipo === "" || $scope.equipo.marca === "" || $scope.equipo.tecnico === "" )
+		if($scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.serie != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.domicilio != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
 		{
-			alert("Te faltan completar campos obligatorios");
-		}else
-		{
+			$scope.equipo.ingresadopor = document.getElementById("ingresadopor").innerHTML;
+			console.log($scope.equipo.ingresadopor);
+
 			var cfechaingreso = $scope.equipo.fechaingreso.split("-");
-			$scope.equipo.fechaingreso = new Date(cfechaingreso[2],cfechaingreso[1]-1,cfechaingreso[0]);
+			$scope.equipo.fechaingreso = new Date(cfechaingreso[0],cfechaingreso[1]-1,cfechaingreso[2]);
 
 			var cfechaprometido = $scope.equipo.fechaprometido.split("-");
-			$scope.equipo.fechaprometido = new Date(cfechaprometido[2],cfechaprometido[1]-1,cfechaprometido[0]);
+			$scope.equipo.fechaprometido = new Date(cfechaprometido[0],cfechaprometido[1]-1,cfechaprometido[2]);
+
 
 			$http.post("./php/acciones.php?agregarEquipo",{
-				"nombre": $scope.equipo.nombre,
-				"celular": $scope.equipo.celular,
-				"telefono": $scope.equipo.telefono,
-				"domicilio": $scope.equipo.domicilio,
-				"fechaingreso": $scope.equipo.fechaingreso,
-				"fechaprometido": $scope.equipo.fechaprometido,
-				"familia": $scope.equipo.familia,
-				"tipoequipo": $scope.equipo.tipoequipo,
-				"marca": $scope.equipo.marca,
-				"modelo": $scope.equipo.modelo,
-				"serie": $scope.equipo.serie,
-				"pilas": $scope.equipo.pilas,
-				"cable": $scope.equipo.cable,
-				"transformador": $scope.equipo.transformador,
-				"antena": $scope.equipo.antena,
-				"control": $scope.equipo.control,
-				"tecnico": $scope.equipo.tecnico,
-				"observaciones": $scope.equipo.observaciones,
-				"falla": $scope.equipo.falla,
-				"ubicacion": $scope.equipo.ubicacion
+				"nombre": scopeNull($scope.equipo.nombre),
+				"celular": scopeNull($scope.equipo.celular),
+				"telefono": scopeNull($scope.equipo.telefono),
+				"domicilio": scopeNull($scope.equipo.domicilio),
+				"fechaingreso": scopeNull($scope.equipo.fechaingreso),
+				"fechaprometido": scopeNull($scope.equipo.fechaprometido),
+				"familia": scopeNull($scope.equipo.familia),
+				"tipoequipo": scopeNull($scope.equipo.tipoequipo),
+				"marca": scopeNull($scope.equipo.marca),
+				"modelo": scopeNull($scope.equipo.modelo),
+				"serie": scopeNull($scope.equipo.serie),
+				"pilas": scopeNull($scope.equipo.pilas),
+				"cable": scopeNull($scope.equipo.cable),
+				"transformador": scopeNull($scope.equipo.transformador),
+				"antena": scopeNull($scope.equipo.antena),
+				"control": scopeNull($scope.equipo.control),
+				"tecnico": scopeNull($scope.equipo.tecnico),
+				"observaciones": scopeNull($scope.equipo.observaciones),
+				"falla": scopeNull($scope.equipo.falla),
+				"ubicacion": scopeNull($scope.equipo.ubicacion),
+				"ingresadopor": scopeNull($scope.equipo.ingresadopor)
 			})
 			.success(function()
 			{
+				console.log("Agregado");
 				$scope.equipo = {
 					nombre: '',
 					celular: '',
 					telefono: '',
 					domicilio: '',
-					fechaingreso: $filter('date')(new Date(), "dd-MM-yyyy"),
-					fechaprometido: '',
+					fechaingreso: $filter('date')(new Date(), "yyyy-MM-dd"),
+					fechaprometido: $filter('date')(new Date(), "yyyy-MM-dd"),
 					familia: '',
 					tipoequipo: '',
 					marca: '',
@@ -543,67 +562,73 @@ electronica.controller("appController",function($scope,$http,$filter)
 					observaciones: '',
 					falla: '',
 					ubicacion: '',
+					ingresadopor: 0
 				};
-				console.log("Agregado");
+
 				$scope.getOrden();
 				location.href = "#/agregar";
 			})
 			.error(function(data, status, headers, config){
 				console.log("Error " + data);
 			});
-			
-		}
+		}else
+		{
+			alert("Rellena los campos obligatorios*");
+		}	
 	}
 
 
 
 	$scope.imprimirAgregado = function()
 	{	
-		if($scope.equipo.serie === "" || $scope.equipo.nombre === "" || $scope.equipo.celular === "" || $scope.equipo.domicilio === "" || $scope.equipo.familia === "" || $scope.equipo.tipoequipo === "" || $scope.equipo.marca === "" || $scope.equipo.tecnico === "" )
+		console.log("Nuevo equipo");
+		if($scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.serie != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.domicilio != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
 		{
-			alert("Te faltan completar campos obligatorios");
-		}else
-		{
+
 			window.print();
 
-			console.log("Nuevo equipo");
+			$scope.equipo.ingresadopor = document.getElementById("ingresadopor").innerHTML;
+			console.log($scope.equipo.ingresadopor);
+
 			var cfechaingreso = $scope.equipo.fechaingreso.split("-");
-			$scope.equipo.fechaingreso = new Date(cfechaingreso[2],cfechaingreso[1]-1,cfechaingreso[0]);
+			$scope.equipo.fechaingreso = new Date(cfechaingreso[0],cfechaingreso[1]-1,cfechaingreso[2]);
 
 			var cfechaprometido = $scope.equipo.fechaprometido.split("-");
-			$scope.equipo.fechaprometido = new Date(cfechaprometido[2],cfechaprometido[1]-1,cfechaprometido[0]);
+			$scope.equipo.fechaprometido = new Date(cfechaprometido[0],cfechaprometido[1]-1,cfechaprometido[2]);
 
 			$http.post("./php/acciones.php?agregarEquipo",{
-				"nombre": $scope.equipo.nombre,
-				"celular": $scope.equipo.celular,
-				"telefono": $scope.equipo.telefono,
-				"domicilio": $scope.equipo.domicilio,
-				"fechaingreso": $scope.equipo.fechaingreso,
-				"fechaprometido": $scope.equipo.fechaprometido,
-				"familia": $scope.equipo.familia,
-				"tipoequipo": $scope.equipo.tipoequipo,
-				"marca": $scope.equipo.marca,
-				"modelo": $scope.equipo.modelo,
-				"serie": $scope.equipo.serie,
-				"pilas": $scope.equipo.pilas,
-				"cable": $scope.equipo.cable,
-				"transformador": $scope.equipo.transformador,
-				"antena": $scope.equipo.antena,
-				"control": $scope.equipo.control,
-				"tecnico": $scope.equipo.tecnico,
-				"observaciones": $scope.equipo.observaciones,
-				"falla": $scope.equipo.falla,
-				"ubicacion": $scope.equipo.ubicacion
+				"nombre": scopeNull($scope.equipo.nombre),
+				"celular": scopeNull($scope.equipo.celular),
+				"telefono": scopeNull($scope.equipo.telefono),
+				"domicilio": scopeNull($scope.equipo.domicilio),
+				"fechaingreso": scopeNull($scope.equipo.fechaingreso),
+				"fechaprometido": scopeNull($scope.equipo.fechaprometido),
+				"familia": scopeNull($scope.equipo.familia),
+				"tipoequipo": scopeNull($scope.equipo.tipoequipo),
+				"marca": scopeNull($scope.equipo.marca),
+				"modelo": scopeNull($scope.equipo.modelo),
+				"serie": scopeNull($scope.equipo.serie),
+				"pilas": scopeNull($scope.equipo.pilas),
+				"cable": scopeNull($scope.equipo.cable),
+				"transformador": scopeNull($scope.equipo.transformador),
+				"antena": scopeNull($scope.equipo.antena),
+				"control": scopeNull($scope.equipo.control),
+				"tecnico": scopeNull($scope.equipo.tecnico),
+				"observaciones": scopeNull($scope.equipo.observaciones),
+				"falla": scopeNull($scope.equipo.falla),
+				"ubicacion": scopeNull($scope.equipo.ubicacion),
+				"ingresadopor": scopeNull($scope.equipo.ingresadopor)
 			})
 			.success(function()
 			{
+				console.log("Agregado");
 				$scope.equipo = {
 					nombre: '',
 					celular: '',
 					telefono: '',
 					domicilio: '',
-					fechaingreso: $filter('date')(new Date(), "dd-MM-yyyy"),
-					fechaprometido: '',
+					fechaingreso: $filter('date')(new Date(), "yyyy-MM-dd"),
+					fechaprometido: $filter('date')(new Date(), "yyyy-MM-dd"),
 					familia: '',
 					tipoequipo: '',
 					marca: '',
@@ -618,14 +643,17 @@ electronica.controller("appController",function($scope,$http,$filter)
 					observaciones: '',
 					falla: '',
 					ubicacion: '',
+					ingresadopor: 0
 				};
-				console.log("Agregado imprimir");
+
 				location.href = "#/tareas";
 			})
 			.error(function(data, status, headers, config){
 				console.log("Error " + data);
 			});
-
+		}else
+		{
+			alert("Rellena los campos obligatorios*");
 		}
 	}
 
@@ -671,7 +699,7 @@ electronica.controller('equipoContenido', function($scope, $routeParams,$http,$f
 			$scope.equipo.fechaingreso = data[0].fechaingreso
 
 			var fechaprometido = (data[0].fechaprometido).split("-");
-			$scope.equipo.fechaprometido = fechaprometido[2] +"-"+ fechaprometido[1]+"-"+fechaprometido[0];
+			$scope.equipo.fechaprometido = fechaprometido[0] +"-"+ fechaprometido[1]+"-"+fechaprometido[2];
 
 			if(data[0].fechaaviso === null)
 			{
@@ -679,7 +707,7 @@ electronica.controller('equipoContenido', function($scope, $routeParams,$http,$f
 			}else
 			{
 				var fechaaviso = (data[0].fechaaviso).split("-");
-				$scope.equipo.fechaaviso = fechaaviso[2] +"-"+ fechaaviso[1]+"-"+fechaaviso[0];
+				$scope.equipo.fechaaviso = fechaaviso[0] +"-"+ fechaaviso[1]+"-"+fechaaviso[2];
 			}
 			
 
@@ -724,6 +752,8 @@ electronica.controller('equipoContenido', function($scope, $routeParams,$http,$f
 			$scope.equipo.estado = data[0].estado;
 			$scope.equipo.estadoid = data[0].estadoid;
 
+			$scope.equipo.phecho = data[0].phecho;
+
 			$scope.equipo.entregado = noToBool(data[0].entregado);
 			console.log(data[0].entregado);
 
@@ -755,10 +785,10 @@ electronica.controller('equipoContenido', function($scope, $routeParams,$http,$f
 		console.log($scope.equipo.id +"-"+$scope.equipo.nombre);
 
 		var fechaprometido = ($scope.equipo.fechaprometido).split("-");
-		$scope.equipo.fechaprometido = fechaprometido[2] +"-"+ fechaprometido[1]+"-"+fechaprometido[0];
+		$scope.equipo.fechaprometido = fechaprometido[0] +"-"+ fechaprometido[1]+"-"+fechaprometido[2];
 
 		var fechaaviso = ($scope.equipo.fechaaviso).split("-");
-		$scope.equipo.fechaaviso = fechaaviso[2] +"-"+ fechaaviso[1]+"-"+fechaaviso[0];
+		$scope.equipo.fechaaviso = fechaaviso[0] +"-"+ fechaaviso[1]+"-"+fechaaviso[2];
 
 		$http.post("./php/acciones.php?actualizarEquipo",{
 			"id": $scope.equipo.id,
@@ -786,6 +816,7 @@ electronica.controller('equipoContenido', function($scope, $routeParams,$http,$f
 			"antena": $scope.equipo.antenanum,
 			"control": $scope.equipo.controlnum,
 			"moneda": $scope.equipo.moneda,
+			"phecho": $scope.equipo.phecho,
 			"presupuesto": parseFloat($scope.equipo.presupuesto)
 		})
 		.success(function()
@@ -823,6 +854,18 @@ function isNull(v)
 	}
 }
 
+
+function scopeNull(v)
+{
+	if(v == "")
+	{
+		return " "
+	}else
+	{
+		return v;
+	}
+}
+
 function toggle_visibility(id) 
 {
 	var e = document.getElementById(id);
@@ -836,7 +879,22 @@ function toggle_visibility(id)
 	}
 }
 
-
+electronica.filter("dateRange", function() {
+	return function(input, startDate, endDate) {
+		
+		var retArray = [];
+		
+		angular.forEach(input, function(obj){
+			var receivedDate = obj.fechaingreso;
+			
+			if(receivedDate >= startDate && receivedDate <= endDate) {
+				retArray.push(obj);			
+			}
+		}); 
+		
+		return retArray; 
+	};
+});
 
 electronica.filter("nombreActivo",function()
 {
@@ -859,7 +917,7 @@ electronica.directive('jqdatepicker', function () {
 		require: 'ngModel',
 		link: function(scope, element, attrs, ctrl) {
 			$(element).datepicker({
-				dateFormat: 'dd-mm-yy',
+				dateFormat: 'yy-mm-dd',
 				onSelect: function(date) {
 					ctrl.$setViewValue(date);
 					ctrl.$render();
@@ -879,13 +937,28 @@ electronica.filter("nombrePresupuesto",function()
 			return "Sin definir"; 
 		}else if(data == 0) 
 		{ 
-			return "no" 
+			return "No" 
 		}else if(data == 1) 
 		{ 
-			return "si" 
+			return "Si" 
 		} 
 	} 
 	return presupuestoaceptado;
+})
+
+electronica.filter("sino",function()
+{
+	var valor = function(data) 
+	{ 
+		if(data== 1) 
+		{ 
+			return "Si"; 
+		}else if(data == 0) 
+		{ 
+			return "No" 
+		} 
+	} 
+	return valor;
 })
 
 electronica.config(function($routeProvider)

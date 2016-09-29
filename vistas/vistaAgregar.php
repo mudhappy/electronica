@@ -1,3 +1,5 @@
+<?php session_start() ?>
+<span style="display:none" id="ingresadopor"><?php echo $_SESSION["id"]?></span>
 <div id="section-to-print" class="row w-100 none">
 	<div class="col-md-12">
 		<h3>Reporte</h3>
@@ -117,7 +119,7 @@
 				</div>
 				<div class="col-md-6">
 					<div>
-						<label for="fechaingreso">Ingreso : </label> 
+						<label for="fechaingreso">Fecha de ingreso* : </label> 
 						<input type="text" ng-model="equipo.fechaingreso" name="fechaingreso" jqdatepicker class="form-control" /> 
 					</div>
 				</div>
@@ -234,7 +236,7 @@
 				</div>
 
 				<div class="col-md-6">
-					<label for="fechaprometido">Prometido : </label> 
+					<label for="fechaprometido">Fecha Prometida* : </label> 
 					<input type="text" ng-model="equipo.fechaprometido" name="fechaprometido" jqdatepicker class="form-control" /> 
 				</div>
 			</div>

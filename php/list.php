@@ -24,6 +24,7 @@ if(isset($_GET["tareas"]))
 
 	$result = $con->query("SELECT 
 		rep.orden, 
+		rep.nombre,
 		tip.nombre as tipoequipo, 
 		mar.nombre as marca,
 		rep.falla,
@@ -50,6 +51,7 @@ if(isset($_GET["taller"]))
 {
 	$result = $con->query("SELECT 
 		rep.orden, 
+		rep.nombre,
 		tip.nombre as tipoequipo, 
 		mar.nombre as marca,
 		rep.falla,
@@ -75,6 +77,7 @@ if(isset($_GET["terminados"]))
 {
 	$result = $con->query("SELECT 
 		rep.orden, 
+		rep.nombre,
 		tip.nombre as tipoequipo, 
 		mar.nombre as marca,
 		rep.falla,
@@ -138,7 +141,8 @@ if(isset($_GET["equipo"]))
 		rep.control,
 		rep.avisado,
 		rep.fechaaviso,
-		rep.entregado
+		rep.entregado,
+		rep.phecho
 		FROM reparaciones AS rep 
 		INNER JOIN familia AS fam ON rep.familia = fam.id 
 		INNER JOIN tipoequipo AS tip ON rep.tipoequipo = tip.id
@@ -191,20 +195,23 @@ if(isset($_GET["todo"]))
 	$result = $con->query("SELECT 
 		rep.orden, 
 		rep.nombre,
-		rep.apellido,
 		rep.telefono,
 		tip.nombre as tipoequipo, 
 		mar.nombre as marca,
 		rep.falla,
 		est.nombre as estado,
 		rep.estado as id_estado,
+		rep.tipoequipo as id_tipoequipo,
+		rep.marca as id_marca,
 		rep.fechaprometido,
 		rep.presupuestoaceptado,
 		tec.usuario as tecnico,
 		rep.fechaingreso,
 		rep.presupuesto,
 		mon.simbolo,
-		rep.serie
+		rep.serie,
+		rep.phecho,
+		rep.avisado
 		FROM reparaciones AS rep 
 		INNER JOIN familia AS fam ON rep.familia = fam.id 
 		INNER JOIN tipoequipo AS tip ON rep.tipoequipo = tip.id
@@ -215,13 +222,32 @@ if(isset($_GET["todo"]))
 		") or trigger_error(mysql_error()); 
 }
 
+
 if(isset($_GET["entregados"]))
 {
 	$result = $con->query("SELECT 
 		rep.orden, 
+		rep.nombre,
+		rep.celular,
+		rep.telefono,
+		rep.domicilio,
+		rep.avisado,
+		rep.fechaaviso,
+		rep.informecliente,
+		rep.informetecnico,
+		rep.pilas,
+		rep.cable,
+		rep.transformador,
+		rep.antena,
+		rep.control,
+		fam.nombre as familia,
 		tip.nombre as tipoequipo, 
 		mar.nombre as marca,
+		rep.modelo,
+		rep.serie,
 		rep.falla,
+		rep.observaciones,
+		rep.ubicacion,
 		est.nombre as estado,
 		rep.fechaprometido,
 		rep.presupuestoaceptado,

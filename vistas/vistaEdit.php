@@ -65,6 +65,13 @@
 							<label for="fechaaviso">Presupuesto : </label> 
 							<input type="number" step="0.01" name="presupuesto" ng-model="equipo.presupuesto" class="form-control"> 
 						</div>
+						<div class="col-md-6 form-group">
+							<label for="fechaaviso">Presupuesto hecho : </label> 
+							<select class="form-control" ng-model="equipo.phecho">
+								<option value="0">No</option>
+								<option value="1">Si</option>
+							</select>
+						</div>
 					</div>
 				</div>
 

@@ -100,10 +100,13 @@ if(isset($_GET["agregarEquipo"]))
 	$observaciones = $data->observaciones;
 	$falla = $data->falla;
 	$ubicacion = $data->ubicacion;
+	$ingresadopor = $data->ingresadopor;
 	$nonedapresupuesto = 1;
 	$presupuestoaceptado = 2;
+	$phecho = 0;
+	$presupuesto = 0.00;
 
-	$con->query("INSERT INTO reparaciones 
+	$con->query('INSERT INTO reparaciones 
 		(
 		nombre,celular,telefono,domicilio,
 		fechaingreso,fechaprometido,
@@ -114,33 +117,83 @@ if(isset($_GET["agregarEquipo"]))
 		falla,
 		ubicacion,
 		nonedapresupuesto,
-		presupuestoaceptado
+		presupuestoaceptado,
+		ingresadopor,
+		phecho,
+		presupuesto
 		) 
 		VALUES 
 		(
-		'".$nombre."',
-		'".$celular."',
-		'".$telefono."',
-		'".$domicilio."',
-		'".$fechaingreso."',
-		'".$fechaprometido."',
-		'".$familia."',
-		'".$tipoequipo."',
-		'".$marca."',
-		'".$modelo."',
-		'".$serie."',
-		'".$pilas."',
-		'".$cable."',
-		'".$transformador."',
-		'".$antena."',
-		'".$control."',
-		'".$tecnico."',
-		'".$observaciones."',
-		'".$falla."',
-		'".$ubicacion."',
-		'".$nonedapresupuesto."',
-		'".$presupuestoaceptado."'
-		) ");
+		"'.$nombre.'",
+		"'.$celular.'",
+		"'.$telefono.'",
+		"'.$domicilio.'",
+		"'.$fechaingreso.'",
+		"'.$fechaprometido.'",
+		"'.$familia.'",
+		"'.$tipoequipo.'",
+		"'.$marca.'",
+		"'.$modelo.'",
+		"'.$serie.'",
+		"'.$pilas.'",
+		"'.$cable.'",
+		"'.$transformador.'",
+		"'.$antena.'",
+		"'.$control.'",
+		"'.$tecnico.'",
+		"'.$observaciones.'",
+		"'.$falla.'",
+		"'.$ubicacion.'",
+		"'.$nonedapresupuesto.'",
+		"'.$presupuestoaceptado.'",
+		"'.$ingresadopor.'",
+		"'.$phecho.'",
+		"'.$presupuesto.'"
+		) ');
+	// $con->query("INSERT INTO reparaciones 
+	// 	(
+	// 	nombre,celular,telefono,domicilio,
+	// 	fechaingreso,fechaprometido,
+	// 	familia,tipoequipo,marca,modelo,serie,
+	// 	pilas,cable,transformador,antena,control,
+	// 	tecnico,
+	// 	observaciones,
+	// 	falla,
+	// 	ubicacion,
+	// 	nonedapresupuesto,
+	// 	presupuestoaceptado,
+	// 	ingresadopor,
+	// 	phecho,
+	// 	presupuesto
+	// 	) 
+	// 	VALUES 
+	// 	(
+	// 	'".$nombre."',
+	// 	'".$celular."',
+	// 	'".$telefono."',
+	// 	'".$domicilio."',
+	// 	'".$fechaingreso."',
+	// 	'".$fechaprometido."',
+	// 	'".$familia."',
+	// 	'".$tipoequipo."',
+	// 	'".$marca."',
+	// 	'".$modelo."',
+	// 	'".$serie."',
+	// 	'".$pilas."',
+	// 	'".$cable."',
+	// 	'".$transformador."',
+	// 	'".$antena."',
+	// 	'".$control."',
+	// 	'".$tecnico."',
+	// 	'".$observaciones."',
+	// 	'".$falla."',
+	// 	'".$ubicacion."',
+	// 	'".$nonedapresupuesto."',
+	// 	'".$presupuestoaceptado."'
+	// 	'".$ingresadopor."',
+	// 	'".$phecho."',
+	// 	'".$presupuesto."'
+	// 	) ");
 }
 
 
@@ -176,6 +229,8 @@ if(isset($_GET["actualizarEquipo"]))
 	$moneda = $data->moneda;
 	$presupuesto = $data->presupuesto;
 
+	$phecho = $data->phecho;
+
 	$con->query("UPDATE reparaciones 
 		SET 
 		nombre = '".$nombre."',
@@ -202,7 +257,8 @@ if(isset($_GET["actualizarEquipo"]))
 		antena = '".$antena."',
 		control = '".$control."',
 		nonedapresupuesto = '".$moneda."',
-		presupuesto = '".$presupuesto."'
+		presupuesto = '".$presupuesto."',
+		phecho = '".$phecho."'
 		WHERE orden = '".$id."' ");
 }
 

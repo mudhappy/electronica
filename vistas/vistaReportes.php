@@ -1,5 +1,16 @@
 <div class="row pd-20">
 	<div class="col-md-2">
+
+		
+		<div class="form-group">
+			<label for="">Orden</label>
+			<div class="row">
+				<div class="col-md-12">
+					<input type="text" ng-model="buscador.orden" placeholder="Nro de orden">
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label for="">Cliente</label>
 			<input type="text" placeholder="Nombre" class="form-control" ng-model="buscador.nombre">
@@ -7,7 +18,7 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-12">
-					<input type="text" placeholder="Apellido" class="form-control" ng-model="buscador.apellido">
+					<input type="text" placeholder="Celular" class="form-control" ng-model="buscador.celular">
 				</div>
 			</div>
 		</div>
@@ -30,6 +41,77 @@
 						</option>
 						<option ng-repeat="dato in datosEstados" value="{{dato.id}}">
 							{{dato.nombre}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="">Tipo de equipo</label>
+			<div class="row">
+				<div class="col-md-12">
+					<select ng-model="buscador.tipoequipo" ng-init="listarTipoEquipo()">
+						<option value="">
+							Cualquiera
+						</option>
+						<option ng-repeat="dato in datosTipoEquipo" value="{{dato.id}}">
+							{{dato.nombre}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="">Marca</label>
+			<div class="row">
+				<div class="col-md-12">
+					<select ng-model="buscador.marca" ng-init="listarMarca()">
+						<option value="">
+							Cualquiera
+						</option>
+						<option ng-repeat="dato in datosMarca" value="{{dato.id}}">
+							{{dato.nombre}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="">Presupuesto hecho</label>
+			<div class="row">
+				<div class="col-md-12">
+					<select ng-model="buscador.phecho">
+						<option value="">
+							Cualquiera
+						</option>
+						<option value="0">
+							No
+						</option>
+						<option value="1">
+							Si
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label for="">Avisado</label>
+			<div class="row">
+				<div class="col-md-12">
+					<select ng-model="buscador.avisado">
+						<option value="">
+							Cualquiera
+						</option>
+						<option value="0">
+							No
+						</option>
+						<option value="1">
+							Si
 						</option>
 					</select>
 				</div>
@@ -84,15 +166,24 @@
 			</div>
 		</div>
 
-		
 		<div class="form-group">
-			<label for="">Orden</label>
 			<div class="row">
 				<div class="col-md-12">
-					<input type="text" ng-model="buscador.orden" placeholder="Nro de orden">
+					<label for="">Fecha Inicial</label>
+					<input type="text" class="form-control" jqdatepicker ng-model="buscador.fechaInicial">
 				</div>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label for="">Fecha Final</label>
+					<input type="text" class="form-control" jqdatepicker ng-model="buscador.fechaFinal">
+				</div>
+			</div>
+		</div>
+
 
 	</div>
 	<div class="col-md-10">
@@ -116,14 +207,19 @@
 			</tr>
 			<tr ng-repeat="dato in datosTodo | filter:{ 
 			nombre: buscador.nombre, 
-			apellido: buscador.apellido, 
+			celular: buscador.celular, 
 			telefono: buscador.telefono,
+			avisado: buscador.avisado,
+			phecho: buscador.phecho,
 			id_estado: buscador.estado,
+			id_tipoequipo: buscador.tipoequipo,
+			id_marca: buscador.marca,
 			tecnico: buscador.tecnico,
 			serie: buscador.serie,
 			presupuestoaceptado: buscador.presupuestoaceptado,
 			orden: buscador.orden
-		}">
+		} | dateRange: buscador.fechaInicial : buscador.fechaFinal">
+
 				<!--
 				<td>
 					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>

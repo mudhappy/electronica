@@ -10,6 +10,21 @@
 				<div class="form-group">
 					<a href="./php/exportar.php" class="btn btn-primary">Crear copia de seguridad</a>
 				</div>
+
+				<form action="./php/importar.php" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
+					<div class="form-group">
+						<label for="">Importar copia de seguridad</label>
+						<input required="required" name="miDatabase" type="file" id="miDatabase" /> 
+					</div>
+					<?php 
+						if (isset($_GET["msg"])) {
+							echo $_GET["msg"];
+						}
+					?>
+					<div class="form-group">
+						<input class="btn btn-success" type="submit" name="Submit" value="Restaurar" />
+					</div>
+				</form> 
 			</div>
 			<div class="col-md-8">
 				<h3>Técnicos</h3>
@@ -56,23 +71,6 @@
 					</tr>
 				</table>
 			</div>
-			<!-- <div class="col-md-6 center-block">
-				<form action="./php/importar.php" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
-
-					<div class="form-group">
-						<label for="">Importar copia de seguridad</label>
-						<input required="required" name="miDatabase" type="file" id="miDatabase" /> 
-					</div> -->
-					<?php 
-						// if (isset($_GET["msg"])) {
-						// 	echo $_GET["msg"];
-						// }
-					?>
-					<!-- <div class="form-group">
-						<input class="btn btn-success" type="submit" name="Submit" value="Restaurar" />
-					</div>
-				</form> 
-			</div> -->
 		</div>
 	</div>
 </div>

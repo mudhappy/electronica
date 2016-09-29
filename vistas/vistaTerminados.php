@@ -4,14 +4,15 @@
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-12">
-					<input type="text" ng-model="orden" placeholder="Buscar por orden">
+					<input class="form-control" type="text" ng-model="nombre" placeholder="Buscar por nombre del cliente">
 				</div>
 			</div>
 		</div>
 		<table class="table table-striped table-responsive no-float" ng-init="listarTerminados()">
 			<tr>
 				<th>Acción</th>
-				<th>Orden</th> 
+				<!-- <th>Orden</th>  -->
+				<th>Cliente</th> 
 				<th>Tipo</th>
 				<th>Marca</th>
 				<th>Falla</th>
@@ -22,11 +23,12 @@
 				<th>Prometido</th>
 				<th>Presupuesto</th>
 			</tr>
-			<tr ng-repeat="dato in datosTerminados | filter:{orden: orden} ">
+			<tr ng-repeat="dato in datosTerminados | filter:{nombre: nombre} ">
 				<td class="col-actions">
 					<button ng-click="equipoTerminado(dato.orden,1)" class="btn btn-edit btn-success"><i class="glyphicon glyphicon-transfer"></i></button>
 				</td>
-				<td>{{dato.orden}}</td>
+				<!-- <td>{{dato.orden}}</td> -->
+				<td>{{dato.nombre}}</td>
 				<td>{{dato.tipoequipo}}</td>
 				<td>{{dato.marca}}</td>
 				<td>{{dato.falla}}</td>
