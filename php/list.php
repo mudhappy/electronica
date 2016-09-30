@@ -100,6 +100,64 @@ if(isset($_GET["terminados"]))
 		") or trigger_error(mysql_error()); 
 }
 
+
+if(isset($_GET["noserepara"]))
+{
+	$result = $con->query("SELECT 
+		rep.orden, 
+		rep.nombre,
+		tip.nombre as tipoequipo, 
+		mar.nombre as marca,
+		rep.falla,
+		est.nombre as estado,
+		rep.fechaprometido,
+		rep.presupuestoaceptado,
+		tec.usuario as tecnico,
+		rep.fechaingreso,
+		rep.presupuesto,
+		mon.simbolo
+		FROM reparaciones AS rep 
+		INNER JOIN familia AS fam ON rep.familia = fam.id 
+		INNER JOIN tipoequipo AS tip ON rep.tipoequipo = tip.id
+		INNER JOIN marca AS mar ON rep.marca = mar.id 
+		INNER JOIN tecnico AS tec ON rep.tecnico = tec.id
+		INNER JOIN estados AS est ON rep.estado = est.id
+		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
+		WHERE rep.estado = 4 
+		AND rep.entregado = 0 ORDER BY orden ASC
+		") or trigger_error(mysql_error()); 
+}
+
+
+if(isset($_GET["paraavisar"]))
+{
+	$result = $con->query("SELECT 
+		rep.orden, 
+		rep.nombre,
+		rep.celular,
+		rep.telefono,
+		tip.nombre as tipoequipo, 
+		mar.nombre as marca,
+		rep.falla,
+		est.nombre as estado,
+		rep.fechaprometido,
+		rep.presupuestoaceptado,
+		tec.usuario as tecnico,
+		rep.fechaingreso,
+		rep.presupuesto,
+		mon.simbolo
+		FROM reparaciones AS rep 
+		INNER JOIN familia AS fam ON rep.familia = fam.id 
+		INNER JOIN tipoequipo AS tip ON rep.tipoequipo = tip.id
+		INNER JOIN marca AS mar ON rep.marca = mar.id 
+		INNER JOIN tecnico AS tec ON rep.tecnico = tec.id
+		INNER JOIN estados AS est ON rep.estado = est.id
+		INNER JOIN monedas AS mon ON rep.nonedapresupuesto = mon.id
+		WHERE rep.avisado = 0 AND phecho = 0  
+		AND rep.entregado = 0 ORDER BY orden ASC
+		") or trigger_error(mysql_error()); 
+}
+
 if(isset($_GET["equipo"]))
 {
 	$idEquipo = $_GET["equipo"];

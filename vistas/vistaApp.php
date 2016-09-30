@@ -14,8 +14,17 @@
 				'<li role="presentation" class="float-right">
 				<a href="#/admin">Administración</a>
 			</li>';
-		}
-		?>
+			}
+			?>
+			<?php 
+			if($_SESSION["id"] == 1 || $_SESSION["id"] == 2 )
+			{
+				echo 
+				'<li role="presentation" class="float-right">
+				<a href="#/paraavisar">Para avisar</a>
+			</li>';
+			}
+			?>
 
 		<li role="presentation" class="float-right">
 			<a href="#/reportes">Reportes</a>

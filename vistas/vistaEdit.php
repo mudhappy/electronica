@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <div class="row hidden-to-print" ng-init="listarEquipo(equipo.id)">
 	<div class="col-md-11 center-block no-float">
 		<div class="row">
@@ -39,32 +40,58 @@
 					<input type="text" ng-model="equipo.fechaprometido" name="fechaprometido" jqdatepicker class="form-control" /> 
 				</div>
 
-				<div class="form-group">
-					<label for="">Presupuesto aceptado:  </label> 
-					<select ng-model="equipo.presupuestoaceptado" class="form-control" name="presupuestoaceptado">
-						<option value="2">Sin definir</option>
-						<option value="1">Si</option>
-						<option value="0">No</option>
-					</select>
-				</div>
+				<?php 
+
+				if($_SESSION["id"] == 1 || $_SESSION["id"] == 2 )
+				{
+					echo 
+					'
+					<div class="form-group">
+						<label for="">Presupuesto aceptado:  </label> 
+						<select ng-model="equipo.presupuestoaceptado" class="form-control" name="presupuestoaceptado">
+							<option value="2">Sin definir</option>
+							<option value="1">Si</option>
+							<option value="0">No</option>
+						</select>
+					</div>';
+				}
+
+				?>
 
 
 
 				<div class="form-group">
 					<div class="row">
-						<div class="col-md-6">
-							<label for="">Moneda presupuesto:  </label> 
-							<select ng-init="listarMonedas()" ng-model="equipo.moneda" class="form-control" name="moneda">
-								<option value="">Selecciona una moneda</option>
-								<option ng-repeat="dato in datosMonedas" value="{{dato.id}}">
-									{{dato.nombre + " (" + dato.simbolo + ")"}}
-								</option>
-							</select>
-						</div>
-						<div class="col-md-6 form-group">
-							<label for="fechaaviso">Presupuesto : </label> 
-							<input type="number" step="0.01" name="presupuesto" ng-model="equipo.presupuesto" class="form-control"> 
-						</div>
+
+
+						<?php 
+
+						if($_SESSION["id"] == 1 || $_SESSION["id"] == 2 )
+						{
+							echo 
+							'
+							<div class="col-md-6">
+								<label for="">Moneda presupuesto:  </label> 
+								<select ng-init="listarMonedas()" ng-model="equipo.moneda" class="form-control" name="moneda">
+									<option value="">Selecciona una moneda</option>
+									<option ng-repeat="dato in datosMonedas" value="{{dato.id}}">
+										{{dato.nombre + " (" + dato.simbolo + ")"}}
+									</option>
+								</select>
+							</div>
+							<div class="col-md-6 form-group">
+								<label for="fechaaviso">Presupuesto : </label> 
+								<input type="number" step="0.01" name="presupuesto" ng-model="equipo.presupuesto" class="form-control"> 
+							</div>
+							';
+						}
+
+						?>
+
+
+
+
+
 						<div class="col-md-6 form-group">
 							<label for="fechaaviso">Presupuesto hecho : </label> 
 							<select class="form-control" ng-model="equipo.phecho">
@@ -75,18 +102,33 @@
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="">Avisado:</label> 
-					<select ng-model="equipo.avisadonum" class="form-control" name="avisadonum" >
-						<option value="1">Si</option>
-						<option value="0">No</option>
-					</select>
-				</div>
 
-				<div class="form-group relative">
-					<label for="fechaaviso">Fecha Aviso : </label> 
-					<input type="text" name="fechaaviso" ng-model="equipo.fechaaviso" jqdatepicker class="form-control"> 
-				</div>
+				<?php 
+
+				if($_SESSION["id"] == 1 || $_SESSION["id"] == 2 )
+				{
+					echo 
+					'
+					<div class="form-group">
+						<label for="">Avisado:</label> 
+						<select ng-model="equipo.avisadonum" class="form-control" name="avisadonum" >
+							<option value="1">Si</option>
+							<option value="0">No</option>
+						</select>
+					</div>
+
+					<div class="form-group relative">
+						<label for="fechaaviso">Fecha Aviso : </label> 
+						<input type="text" name="fechaaviso" ng-model="equipo.fechaaviso" jqdatepicker class="form-control"> 
+					</div>
+					';
+				}
+
+				?>
+
+
+
+
 
 				<div class="form-group">
 					<label for="">Informe al cliente : </label> 
@@ -175,10 +217,22 @@
 						</div>
 					</td>
 				</table>
-				<div class="form-group">
-					<label for="">Informe Técnico </label>
-					<textarea name="informetecnico" ng-model="equipo.informetecnico" class="pd-20 form-control" rows="6" placeholder="No descrito aun ..."></textarea>
-				</div>
+				
+				<?php 
+
+				if($_SESSION["id"] != 2 )
+				{
+					echo 
+					'
+					<div class="form-group">
+						<label for="">Informe Interno </label>
+						<textarea name="informetecnico" ng-model="equipo.informetecnico" class="pd-20 form-control" rows="6" placeholder="No descrito aun ..."></textarea>
+					</div>
+					';
+				}
+
+				?>
+
 			</div>
 		</div>
 		<div class="row  pd-20 text-center">

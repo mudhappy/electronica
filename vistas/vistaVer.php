@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <div ng-init="listarEquipo(equipo.id)" class="row hidden-to-print">
 	<div class="col-md-11 center-block no-float">
 		<!-- Cliente -->
@@ -133,15 +134,28 @@
 					<label for="">Informe al cliente</label>
 					<textarea ng-model="equipo.informecliente" name="informecliente" class="pd-20 form-control" rows="2" placeholder="No descrito aun ..."></textarea>
 				</div>
-				<div class="form-group">
-					<label for="">Informe Técnico 
-					<button onclick="toggle_visibility('hideMe')" class="btn btn-primary"><i class="glyphicon glyphicon-sort"></i></button>
-					</label>
-					<textarea id="hideMe" style="display:none" ng-model="equipo.informetecnico" class="pd-20 form-control" rows="2" placeholder="No descrito aun ..."></textarea>
-				</div>
-			</div>
-			<div class="col-md-12">
 
+
+
+				<?php 
+
+				if($_SESSION["id"] != 2 )
+				{
+					echo 
+					'
+					<div class="form-group">
+						<label for="">Informe Interno 
+							<button onclick="toggle_visibility("hideMe")" class="btn btn-primary"><i class="glyphicon glyphicon-sort"></i></button>
+						</label>
+						<textarea id="hideMe" style="display:none" ng-model="equipo.informetecnico" class="pd-20 form-control" rows="2" placeholder="No descrito aun ..."></textarea>
+					</div>
+					';
+				}
+
+				?>
+
+
+				
 			</div>
 		</div>
 

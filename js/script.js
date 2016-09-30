@@ -288,6 +288,32 @@ electronica.controller("appController",function($scope,$http,$filter)
 		});
 	}
 
+
+	$scope.listarNoSeRepara= function()
+	{
+		$http.get("./php/list.php?noserepara")
+		.success(function(data)
+		{
+			$scope.datosNoSeRepara = data;
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
+
+	$scope.listarParaAvisar= function()
+	{
+		$http.get("./php/list.php?paraavisar")
+		.success(function(data)
+		{
+			$scope.datosParaAvisar = data;
+		})
+		.error(function(data, status, headers, config){
+			console.log("Error " + data);
+		});
+	}
+
 	$scope.listarEntregados= function()
 	{
 		$http.get("./php/list.php?entregados")
@@ -984,6 +1010,9 @@ electronica.config(function($routeProvider)
 	}).when("/agregar",
 	{
 		templateUrl: "./vistas/vistaAgregar.php"
+	}).when("/paraavisar",
+	{
+		templateUrl: "./vistas/vistaParaAvisar.php"
 	}).when("/ver/:idReparacion",
 	{
 		templateUrl: "./vistas/vistaVer.php",

@@ -194,8 +194,8 @@
 		</h3>
 		<table id="section-to-print" class="table table-striped table-responsive no-float" ng-init="listarTodo()">
 			<tr>
-				<!--<th>Acción</th>-->
-				<th>Nro</th> 
+				<th>Acción</th>
+				<th>Cliente</th> 
 				<th>Tipo</th>
 				<th>Marca</th>
 				<th>Falla</th>
@@ -220,28 +220,28 @@
 			orden: buscador.orden
 		} | dateRange: buscador.fechaInicial : buscador.fechaFinal">
 
-				<!--
-				<td>
-					<button class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></button>
-					<button class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></button>
-				</td>
-			-->
-			<td>{{dato.orden}}</td>
-			<td>{{dato.tipoequipo}}</td>
-			<td>{{dato.marca}}</td>
-			<td>{{dato.falla}}</td>
-			<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
-			<td>{{dato.estado}}</td>
-			<td>{{dato.fechaingreso}}</td>
-			<td>{{dato.fechaprometido}}</td>
-			<td>
-				<span ng-show="dato.presupuesto != null  ">
-					<span ng-show="dato.presupuesto != 0  ">
-						{{dato.simbolo}} {{dato.presupuesto}}
-					</span>
+		
+		<td class="col-actions">
+			<a href="#/edit/{{dato.orden}}" class="btn btn-edit btn-info"><i class="glyphicon glyphicon-edit"></i></a>
+			<a href="#/ver/{{dato.orden}}" class="btn btn-edit btn-success"><i class="glyphicon glyphicon-search"></i></a>
+		</td>
+		
+		<td>{{dato.nombre}}</td>
+		<td>{{dato.tipoequipo}}</td>
+		<td>{{dato.marca}}</td>
+		<td>{{dato.falla}}</td>
+		<td>{{dato.presupuestoaceptado | nombrePresupuesto}}</td>
+		<td>{{dato.estado}}</td>
+		<td>{{dato.fechaingreso}}</td>
+		<td>{{dato.fechaprometido}}</td>
+		<td>
+			<span ng-show="dato.presupuesto != null  ">
+				<span ng-show="dato.presupuesto != 0  ">
+					{{dato.simbolo}} {{dato.presupuesto}}
 				</span>
-			</td>
-		</tr>
-	</table>
+			</span>
+		</td>
+	</tr>
+</table>
 </div>
 </div>
