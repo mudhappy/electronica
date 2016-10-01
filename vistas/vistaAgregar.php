@@ -110,7 +110,7 @@
 								<input ng-model="equipo.telefono" name="telefono" type="text" class="form-control">
 							</div>
 							<div class="form-group">
-								<label for="domicilio">Domicilio*:</label>
+								<label for="domicilio">Domicilio:</label>
 								<input ng-model="equipo.domicilio" name="domicilio" type="text" class="form-control">
 							</div>
 						</div>
@@ -161,7 +161,7 @@
 						<input type="text" name="modelo" ng-model="equipo.modelo" class="form-control">
 					</div>
 					<div class="form-group">
-						<label for="serie">Serie*</label>
+						<label for="serie">Serie</label>
 						<input type="text" name="serie" ng-model="equipo.serie" class="form-control">
 					</div>
 				</div>
@@ -211,7 +211,7 @@
 						<textarea name="observaciones" ng-model="equipo.observaciones" class="pd-20 form-control" rows="2" ></textarea>
 					</div>
 					<div class="form-group">
-						<label for="">Falla</label>
+						<label for="">Falla*</label>
 						<textarea name="falla" ng-model="equipo.falla" class="pd-20 form-control" rows="2" placeholder="Describa la falla ..."></textarea>
 					</div>
 					<div class="form-group">
@@ -227,7 +227,7 @@
 			<div class="row pd-20">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="">Reparación por*:</label>
+						<label for="">Asignar reparación a*:</label>
 						<select name="tecnico" ng-model="equipo.tecnico" ng-init="listarTecnicosActivos()" class="form-control" >
 							<option value="">Técnico</option>
 							<option ng-repeat="dato in datosTecnicoActivo" value="{{dato.id}}">{{dato.usuario}}</option>

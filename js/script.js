@@ -451,7 +451,7 @@ electronica.controller("appController",function($scope,$http,$filter)
 	{	
 		console.log("Nuevo equipo");
 
-		if($scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.serie != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.domicilio != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
+		if($scope.equipo.falla != "" && $scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
 		{
 			$scope.equipo.ingresadopor = document.getElementById("ingresadopor").innerHTML;
 			console.log($scope.equipo.ingresadopor);
@@ -529,7 +529,7 @@ electronica.controller("appController",function($scope,$http,$filter)
 	$scope.ingresarOtro = function()
 	{
 		console.log("Nuevo equipo");
-		if($scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.serie != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.domicilio != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
+		if($scope.equipo.falla != ""  && $scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
 		{
 			$scope.equipo.ingresadopor = document.getElementById("ingresadopor").innerHTML;
 			console.log($scope.equipo.ingresadopor);
@@ -608,7 +608,7 @@ electronica.controller("appController",function($scope,$http,$filter)
 	$scope.imprimirAgregado = function()
 	{	
 		console.log("Nuevo equipo");
-		if($scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.serie != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.domicilio != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
+		if($scope.equipo.falla != "" && $scope.equipo.fechaingreso != "" && $scope.equipo.fechaprometido != "" && $scope.equipo.tecnico != "" && $scope.equipo.nombre != "" && $scope.equipo.celular != "" && $scope.equipo.familia != "" && $scope.equipo.tipoequipo != "" && $scope.equipo.marca != "")
 		{
 
 			window.print();
